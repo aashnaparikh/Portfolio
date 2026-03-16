@@ -154,7 +154,7 @@
     }
 
     /* ── FEATURED CARDS ── */
-    .featured-grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin-bottom: 14px; }
+    .featured-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
 
     /* ── ALL PROJECTS GRID ── */
     .projects-grid {
@@ -319,8 +319,12 @@
       .projects-grid { grid-template-columns: repeat(2, 1fr); }
       .page-title { letter-spacing: -2px; }
     }
+    @media (max-width: 640px) {
+      .featured-grid { grid-template-columns: 1fr; }
+    }
     @media (max-width: 580px) {
       .projects-grid { grid-template-columns: 1fr; }
+      .featured-grid { grid-template-columns: 1fr; }
       nav { padding: 0 18px; }
       .page { padding: 82px 16px 48px; }
       .hstat { padding: 10px 18px; }
@@ -346,7 +350,7 @@
     <li><a href="index.html#about">About</a></li>
     <li><a href="projects.html" class="active">Projects</a></li>
     <li><a href="experiences.html">Experience</a></li>
-    <li><a href="index.html" onclick="sessionStorage.setItem('openSkills','1')">Skills</a></li>
+    <li><a href="skills.html">Skills</a></li>
     <li><a href="index.html#education">Education</a></li>
     <li><a href="index.html#contact">Contact</a></li>
   </ul>
@@ -370,7 +374,7 @@
     <p class="page-sub">From AI diagnostic platforms to low-level embedded systems — things I've built that I'm proud of.</p>
     <div class="header-stats">
       <div class="hstat">
-        <div class="hstat-n">14</div>
+        <div class="hstat-n">16</div>
         <div class="hstat-l">Projects</div>
       </div>
       <div class="hstat">
@@ -387,13 +391,13 @@
   <!-- STICKY FILTER BAR -->
   <div class="filter-wrap">
     <div class="filter-bar">
-      <button class="filter-btn active" data-filter="all">All <span class="filter-count">14</span></button>
-      <button class="filter-btn" data-filter="ai-ml">🤖 AI &amp; ML <span class="filter-count">3</span></button>
-      <button class="filter-btn" data-filter="fullstack">🌐 Full-Stack <span class="filter-count">3</span></button>
+      <button class="filter-btn active" data-filter="all">All <span class="filter-count">16</span></button>
+      <button class="filter-btn" data-filter="ai-ml">🤖 AI &amp; ML <span class="filter-count">6</span></button>
+      <button class="filter-btn" data-filter="fullstack">🌐 Full-Stack <span class="filter-count">6</span></button>
       <button class="filter-btn" data-filter="systems">⚙️ Systems <span class="filter-count">2</span></button>
       <button class="filter-btn" data-filter="algorithms">🔢 Algorithms <span class="filter-count">3</span></button>
       <button class="filter-btn" data-filter="creative">🎨 Creative <span class="filter-count">2</span></button>
-      <button class="filter-btn" data-filter="engineering">🏗️ Engineering <span class="filter-count">1</span></button>
+      <button class="filter-btn" data-filter="engineering">🏗️ Engineering <span class="filter-count">2</span></button>
     </div>
   </div>
 
@@ -402,7 +406,7 @@
   <div class="featured-grid" id="featured-grid">
 
     <!-- Guardian Healthcare -->
-    <div class="proj-card featured" data-cats="ai-ml fullstack"
+    <div class="proj-card featured" data-cats="ai-ml fullstack featured-item"
          style="--card-glow:rgba(251,146,60,0.12); --card-border:rgba(251,146,60,0.35); --icon-bg:rgba(251,146,60,0.12); --icon-border:rgba(251,146,60,0.28);">
       <div class="card-top">
         <div class="card-top-left">
@@ -438,7 +442,7 @@
     </div>
 
     <!-- BDC Nexus -->
-    <div class="proj-card featured" data-cats="fullstack"
+    <div class="proj-card featured" data-cats="ai-ml fullstack featured-item"
          style="--card-glow:rgba(129,140,248,0.1); --card-border:rgba(129,140,248,0.32); --icon-bg:rgba(129,140,248,0.12); --icon-border:rgba(129,140,248,0.25);">
       <div class="card-top">
         <div class="card-top-left">
@@ -466,6 +470,74 @@
       <div class="card-footer">
         <span class="lang-dot"><span class="ldot" style="background:#f1e05a;"></span>JavaScript / Java</span>
         <a href="https://github.com/aashnaparikh/BDC-Nexus" target="_blank" class="gh-link">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+          View on GitHub
+        </a>
+      </div>
+    </div>
+
+    <!-- SignBridge -->
+    <div class="proj-card featured" data-cats="ai-ml featured-item"
+         style="--card-glow:rgba(167,139,250,0.12); --card-border:rgba(167,139,250,0.35); --icon-bg:rgba(167,139,250,0.12); --icon-border:rgba(167,139,250,0.28);">
+      <div class="card-top">
+        <div class="card-top-left">
+          <div class="proj-icon lg">🤟</div>
+          <div>
+            <div class="proj-title lg">SignBridge</div>
+          </div>
+        </div>
+        <span class="cat-tag" style="--tag-bg:rgba(167,139,250,0.1);--tag-border:rgba(167,139,250,0.28);--tag-color:#c4b5fd;">AI &amp; ML</span>
+      </div>
+      <p class="proj-desc lg">Real-time ASL finger-spelling recognition. Sign a letter — the model predicts it and spells out words live from your webcam. 4-layer MLP with batch norm, 10-frame smoothing window, and a 370k-word dictionary for real-time word suggestions.</p>
+      <div class="metrics">
+        <span class="metric highlight">98.8% accuracy</span>
+        <span class="metric highlight">~30 fps inference</span>
+        <span class="metric">26 letter classes</span>
+        <span class="metric">288k params</span>
+        <span class="metric">16,128 training samples</span>
+        <span class="metric">370k word dict</span>
+      </div>
+      <div class="stack">
+        <span class="tech">PyTorch</span><span class="tech">MediaPipe</span><span class="tech">OpenCV</span><span class="tech">scikit-learn</span>
+      </div>
+      <div class="card-footer">
+        <span class="lang-dot"><span class="ldot" style="background:#3572A5;"></span>Python</span>
+        <a href="https://github.com/aashnaparikh/SignBridge" target="_blank" class="gh-link">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+          View on GitHub
+        </a>
+      </div>
+    </div>
+
+    <!-- Cloud Analytics Pipeline -->
+    <div class="proj-card featured" data-cats="fullstack engineering featured-item"
+         style="--card-glow:rgba(96,165,250,0.12); --card-border:rgba(96,165,250,0.35); --icon-bg:rgba(96,165,250,0.12); --icon-border:rgba(96,165,250,0.28);">
+      <div class="card-top">
+        <div class="card-top-left">
+          <div class="proj-icon lg">☁️</div>
+          <div>
+            <div class="proj-title lg">Cloud Analytics Pipeline</div>
+          </div>
+        </div>
+        <span class="cat-tag" style="--tag-bg:rgba(96,165,250,0.1);--tag-border:rgba(96,165,250,0.28);--tag-color:#93c5fd;">Full-Stack · Engineering</span>
+      </div>
+      <p class="proj-desc lg">Production-grade real-time analytics platform with multi-tenant architecture, JWT auth, Redis caching, and Prometheus/Grafana observability. Batch ingestion of 1,000 events/request with RFC 9457 error standards and full CI/CD via GitHub Actions.</p>
+      <div class="metrics">
+        <span class="metric highlight">Multi-tenant JWT auth</span>
+        <span class="metric highlight">Redis 2-min cache</span>
+        <span class="metric">1000 events/batch</span>
+        <span class="metric">Prometheus + Grafana</span>
+        <span class="metric">Flyway migrations</span>
+        <span class="metric">Docker + CI/CD</span>
+      </div>
+      <div class="stack">
+        <span class="tech">Java 21</span><span class="tech">Spring Boot 3.2</span><span class="tech">React 18</span>
+        <span class="tech">PostgreSQL 16</span><span class="tech">Redis 7</span><span class="tech">Docker</span>
+        <span class="tech">Prometheus</span><span class="tech">Grafana</span>
+      </div>
+      <div class="card-footer">
+        <span class="lang-dot"><span class="ldot" style="background:#b07219;"></span>Java / TypeScript</span>
+        <a href="https://github.com/aashnaparikh/Cloud-Analytics-Pipeline" target="_blank" class="gh-link">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
           View on GitHub
         </a>
@@ -843,24 +915,36 @@
   const featuredLabel = document.getElementById('featured-label');
   const allLabel = document.getElementById('all-label');
   const allCards = document.querySelectorAll('#projects-grid .proj-card:not(.empty-state)');
+  const featuredCards = document.querySelectorAll('#featured-grid .proj-card');
   const emptyState = document.getElementById('empty-state');
 
   btns.forEach(btn => {
     btn.addEventListener('click', () => {
       btns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-
       const filter = btn.dataset.filter;
-      const showFeatured = filter === 'all';
+      const isAll = filter === 'all';
 
-      featuredGrid.style.display = showFeatured ? 'grid' : 'none';
-      featuredLabel.style.display = showFeatured ? '' : 'none';
-      allLabel.style.display = '';
+      // Featured section: show all in "All" view, filter cards individually otherwise
+      featuredLabel.style.display = isAll ? '' : 'none';
+      if (isAll) {
+        featuredGrid.style.display = 'grid';
+        featuredCards.forEach(c => c.classList.remove('hidden'));
+      } else {
+        // Show featured grid only if at least one matches
+        let featuredMatch = 0;
+        featuredCards.forEach(c => {
+          const match = (c.dataset.cats||'').includes(filter);
+          c.classList.toggle('hidden', !match);
+          if (match) featuredMatch++;
+        });
+        featuredGrid.style.display = featuredMatch ? 'grid' : 'none';
+        if (featuredMatch) featuredLabel.style.display = '';
+      }
 
       let visible = 0;
-      allCards.forEach((card, i) => {
-        const cats = card.dataset.cats || '';
-        const show = filter === 'all' || cats.includes(filter);
+      allCards.forEach(card => {
+        const show = isAll || (card.dataset.cats||'').includes(filter);
         card.classList.toggle('hidden', !show);
         if (show) {
           visible++;
@@ -871,7 +955,7 @@
         }
       });
 
-      emptyState.classList.toggle('show', visible === 0);
+      emptyState.classList.toggle('show', !isAll && visible === 0 && [...featuredCards].every(c=>c.classList.contains('hidden')));
     });
   });
 
