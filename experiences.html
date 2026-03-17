@@ -198,7 +198,12 @@
     /* Card header */
     .exp-card-top {
       display: flex; align-items: center; gap: 13px;
-      padding-bottom: 18px;
+      padding-bottom: 12px;
+    }
+    .exp-desc {
+      font-size: 0.75rem; color: #5a5a7a; line-height: 1.6;
+      padding-bottom: 14px; border-bottom: 1px solid rgba(255,255,255,0.04);
+      margin-bottom: 0;
     }
     .exp-ico {
       width: 46px; height: 46px; border-radius: 12px; flex-shrink: 0;
@@ -373,8 +378,8 @@
     <h1 class="page-title">Experience</h1>
     <p class="page-sub">Building real systems at the intersection of software, hardware, research, and healthcare.</p>
     <div class="exp-stats">
-      <div class="estat"><div class="estat-n">4</div><div class="estat-l">Roles</div></div>
-      <div class="estat"><div class="estat-n">2</div><div class="estat-l">Current</div></div>
+      <div class="estat"><div class="estat-n">5</div><div class="estat-l">Roles</div></div>
+      <div class="estat"><div class="estat-n">3</div><div class="estat-l">Current</div></div>
       <div class="estat"><div class="estat-n">3+</div><div class="estat-l">Industries</div></div>
       <div class="estat"><div class="estat-n">UVic</div><div class="estat-l">Based</div></div>
     </div>
@@ -397,14 +402,13 @@
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
           </div>
         </div>
+        <p class="exp-desc">Engineering real-time PLC control software for renewable natural gas infrastructure — 15+ control modules, 50+ sensor channels, and safety-critical automation running 24/7 at industrial scale.</p>
         <div class="exp-body">
           <div class="exp-divider"></div>
           <ul class="exp-bullets">
-            <li>Led development and deployment of real-time PLC control software for renewable natural gas infrastructure supporting 24/7 industrial operations.</li>
-            <li>Built 15+ PLC control modules (PID loops, fault detection, pressure regulation) maintaining ±2% pressure stability under dynamic conditions.</li>
-            <li>Implemented real-time control and telemetry for 50+ sensors and I/O channels, enabling automated monitoring and safety responses.</li>
-            <li>Developed and maintained 1,000+ lines of production control software with Git-based version control and structured documentation.</li>
-            <li>Led software integration, testing, and commissioning — resolving 10+ control-system faults to ensure stable industrial deployment.</li>
+            <li>Built 15+ PLC control modules — PID loops, fault detection, and pressure regulation — maintaining ±2% stability across 50+ sensor and I/O channels for renewable natural gas infrastructure.</li>
+            <li>Developed and maintained 1,000+ lines of production control software with real-time telemetry, structured documentation, and Git-based version control.</li>
+            <li>Led end-to-end integration, testing, and commissioning — resolving 10+ control-system faults to achieve stable, safety-critical 24/7 industrial deployment.</li>
           </ul>
           <div class="exp-tech">
             <span class="exp-pill">PLC Programming</span><span class="exp-pill">Real-Time Systems</span><span class="exp-pill">PID Control</span>
@@ -437,13 +441,14 @@
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
           </div>
         </div>
+        <p class="exp-desc">Building ML pipelines and predictive models for distributed marine sensor networks — processing 10k+ environmental data points and contributing to a peer-reviewed publication on secure sensing systems.</p>
         <div class="exp-body">
           <div class="exp-divider"></div>
           <ul class="exp-bullets">
-            <li>Built Python-based ML pipelines processing 10k+ multi-sensor environmental data points to analyze distributed marine sensing systems and identify ecosystem stressors.</li>
-            <li>Developed predictive models and time-series workflows for automated analysis of distributed underwater sensor network data.</li>
-            <li>Conducted cybersecurity threat modeling for distributed sensing infrastructure, analyzing attack surfaces and designing secure communication components.</li>
-            <li>Produced data visualization and analytics tools for sensor datasets; contributing to an upcoming peer-reviewed publication on secure environmental monitoring systems.</li>
+            <li>Engineered Python-based ML pipelines ingesting and processing 10k+ multi-sensor environmental data points from distributed underwater sensor arrays, enabling automated detection of marine ecosystem stressors.</li>
+            <li>Built time-series forecasting and predictive models (scikit-learn, pandas) for continuous analysis of sensor drift, anomaly detection, and environmental trend identification across distributed network nodes.</li>
+            <li>Conducted end-to-end cybersecurity threat modeling for marine sensing infrastructure — mapping attack surfaces, analyzing communication protocols, and prototyping secure data-relay components.</li>
+            <li>Developed interactive data visualization dashboards for real-time sensor analytics; work contributed to an upcoming peer-reviewed publication on secure distributed environmental monitoring.</li>
           </ul>
           <div class="exp-tech">
             <span class="exp-pill">Python</span><span class="exp-pill">Machine Learning</span><span class="exp-pill">Data Pipelines</span>
@@ -468,13 +473,14 @@
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
           </div>
         </div>
+        <p class="exp-desc">Prototyped a hospital-grade pediatric MRI simulator with C++, Python, and React — aimed at reducing sedation rates in young patients through high-fidelity pre-procedure preparation.</p>
         <div class="exp-body">
           <div class="exp-divider"></div>
           <ul class="exp-bullets">
-            <li>Prototyped and engineered a hospital-grade pediatric MRI simulator using C++, Python, and React to create a high-fidelity patient training system.</li>
-            <li>Designed and tested real-time control logic and low-latency backend services with FastAPI, enabling responsive system behavior for interactive MRI simulation workflows.</li>
-            <li>Built React/Redux interfaces for simulation control and user interaction, enabling rapid prototype iteration and usability testing with clinical stakeholders.</li>
-            <li>Led integration, validation, and Git-based development workflows — delivering a prototype aimed at reducing pediatric sedation during MRI procedures.</li>
+            <li>Architected and built a hospital-grade pediatric MRI simulator in C++ and Python, accurately reproducing scanner sounds and visual sequences to prepare children for procedures without requiring sedation.</li>
+            <li>Designed low-latency real-time control logic and FastAPI backend services to handle simulation sequencing, audio playback, and dynamic parameter adjustment with sub-100ms response times.</li>
+            <li>Built a React/Redux clinician interface for configuring and running simulation sessions — enabling rapid iteration cycles and usability testing directly with Fraser Health clinical staff.</li>
+            <li>Defined Git branching strategy, code review process, and integration test suites across a multi-person team; delivered a working prototype on schedule for clinical evaluation.</li>
           </ul>
           <div class="exp-tech">
             <span class="exp-pill">C++</span><span class="exp-pill">Python</span><span class="exp-pill">React</span><span class="exp-pill">Redux</span>
@@ -506,13 +512,14 @@
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
           </div>
         </div>
+        <p class="exp-desc">Supported digital fabrication workflows at UVic's Digital Scholarship Commons — CAD modeling, 3D printing, and hands-on technical guidance helping students bring designs from concept to prototype.</p>
         <div class="exp-body">
           <div class="exp-divider"></div>
           <ul class="exp-bullets">
-            <li>Designed and prototyped 3D models and CAD components using Fusion 360, SolidWorks, and Blender for student and research projects.</li>
-            <li>Optimized digital design and 3D printing workflows, troubleshooting modeling, slicing, and fabrication issues for student prototypes.</li>
-            <li>Provided technical guidance on CAD, modeling, and rapid prototyping — enabling users to translate concepts into manufacturable designs.</li>
-            <li>Contributed to hands-on workshops and technical demos promoting digital fabrication, design iteration, and creative problem-solving.</li>
+            <li>Designed and produced 3D models, enclosures, and mechanical assemblies in Fusion 360, SolidWorks, and Blender for diverse student and faculty research projects ranging from scientific instruments to interactive art installations.</li>
+            <li>Diagnosed and resolved modeling, slicing, and hardware issues across FDM and resin printers — reducing print failure rates and shortening prototype turnaround times for students under deadline.</li>
+            <li>Delivered one-on-one technical consultations on CAD methodology, tolerancing, and design-for-print best practices, enabling students with no prior CAD experience to produce functional prototypes.</li>
+            <li>Co-facilitated workshops on digital fabrication tools and maker-space equipment, reaching 50+ students per term and building a culture of iterative, hands-on design thinking at UVic.</li>
           </ul>
           <div class="exp-tech">
             <span class="exp-pill">Fusion 360</span><span class="exp-pill">SolidWorks</span><span class="exp-pill">Blender</span>
@@ -521,6 +528,41 @@
           </div>
         </div>
       </div>
+    </div>
+
+    <!-- 5 · ECS Faculty — LEFT card, RIGHT date -->
+    <div class="tl-item left sr">
+      <div class="exp-card" style="--card-accent:#10b981; --card-glow:rgba(16,185,129,0.08); --icon-bg:rgba(16,185,129,0.1); --icon-border:rgba(16,185,129,0.25);" onclick="toggleCard(this)">
+        <div class="exp-card-top">
+          <div class="exp-ico">🎓</div>
+          <div class="exp-meta">
+            <div class="exp-role">Undergraduate Research Assistant</div>
+            <div class="exp-company">Engineering &amp; Computer Science Faculty – UVic</div>
+            <div class="exp-when">January 2026 – Present <span class="live-badge">LIVE</span></div>
+          </div>
+          <div class="exp-toggle">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </div>
+        </div>
+        <p class="exp-desc">Contributing to faculty-led research within the ECS department — developing software tools, supporting academic projects, and applying CS fundamentals to open research problems in computing and engineering.</p>
+        <div class="exp-body">
+          <div class="exp-divider"></div>
+          <ul class="exp-bullets">
+            <li>Collaborated directly with ECS faculty on active research initiatives, translating open academic problems into working software prototypes and experimental systems.</li>
+            <li>Developed and maintained research tooling, automation scripts, and data processing pipelines in Python to accelerate experiment cycles and ensure reproducible results.</li>
+            <li>Applied core CS fundamentals — algorithms, data structures, systems design — to assist in formulating experiment methodology, validating models, and interpreting quantitative outcomes.</li>
+            <li>Contributed to technical documentation, internal research reports, and supported preparation of materials for academic publication and faculty presentations.</li>
+          </ul>
+          <div class="exp-tech">
+            <span class="exp-pill">Python</span><span class="exp-pill">Research Methods</span><span class="exp-pill">Data Analysis</span>
+            <span class="exp-pill">Software Engineering</span><span class="exp-pill">Academic Writing</span><span class="exp-pill">Git</span>
+          </div>
+        </div>
+      </div>
+      <div class="tl-dot-col">
+        <div class="tl-dot live" style="--dot-color:#10b981;"></div>
+      </div>
+      <div class="tl-date">Jan 2026 – Present</div>
     </div>
 
   </div><!-- /timeline-wrap -->
