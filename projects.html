@@ -501,7 +501,7 @@
   </div>
 
   <!-- PROJECT OVERVIEW BANNER -->
-  <div class="proj-banner sr">
+  <div class="proj-banner" id="proj-banner">
     <!-- Left: Areas of Focus -->
     <div class="pb-left">
       <div class="pb-eyebrow">Areas of Focus</div>
@@ -1137,6 +1137,8 @@
     });
     var hdr = document.querySelector('.page-header');
     if(hdr){ hdr.classList.add('sr'); obs.observe(hdr); }
+    var banner = document.getElementById('proj-banner');
+    if(banner){ banner.classList.add('sr'); obs.observe(banner); }
   })();
 </script>
 </body>
