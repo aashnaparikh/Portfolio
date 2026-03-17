@@ -386,6 +386,36 @@
     .ni-bullet { font-size: 0.8rem; flex-shrink: 0; margin-top: 1px; }
     .ni-txt { font-size: 0.73rem; color: #44455a; line-height: 1.6; }
 
+    /* ── TECH MARQUEE ── */
+    .marquee-wrap {
+      overflow: hidden; position: relative;
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 12px;
+      background: rgba(255,255,255,0.012);
+      padding: 11px 0;
+    }
+    .marquee-wrap::before, .marquee-wrap::after {
+      content: ''; position: absolute; top: 0; bottom: 0; width: 72px; z-index: 2; pointer-events: none;
+    }
+    .marquee-wrap::before { left: 0; background: linear-gradient(90deg, #08080d 0%, transparent 100%); }
+    .marquee-wrap::after  { right: 0; background: linear-gradient(-90deg, #08080d 0%, transparent 100%); }
+    .marquee-track {
+      display: flex; gap: 36px; width: max-content;
+      animation: mq 32s linear infinite;
+    }
+    .marquee-wrap:hover .marquee-track { animation-play-state: paused; }
+    .marquee-item {
+      display: flex; align-items: center; gap: 7px;
+      color: #3a3a55; font-size: 0.7rem; font-weight: 600;
+      white-space: nowrap; letter-spacing: 0.3px;
+      transition: color .2s;
+      cursor: default;
+    }
+    .marquee-wrap:hover .marquee-item { color: #6868a0; }
+    .marquee-item img { width: 15px; height: 15px; opacity: 0.55; }
+    .marquee-sep { color: rgba(255,255,255,0.08); font-size: 0.65rem; }
+    @keyframes mq { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
     /* ── FOOTER ── */
     .footer-links {
       display: flex; justify-content: center; gap: 22px;
@@ -654,6 +684,70 @@
           <span class="chip"><img src="https://skillicons.dev/icons?i=postgresql" alt="">PostgreSQL</span>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- TECH MARQUEE -->
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <!-- set 1 -->
+      <span class="marquee-item"><img src="https://skillicons.dev/icons?i=python" alt="">Python</span>
+      <span class="marquee-sep">✦</span>
+      <span class="marquee-item"><img src="https://skillicons.dev/icons?i=pytorch" alt="">PyTorch</span>
+      <span class="marquee-sep">✦</span>
+      <span class="marquee-item"><img src="https://skillicons.dev/icons?i=react" alt="">React</span>
+      <span class="marquee-sep">✦</span>
+      <span class="marquee-item"><img src="https://skillicons.dev/icons?i=typescript" alt="">TypeScript</span>
+      <span class="marquee-sep">✦</span>
+      <span class="marquee-item"><img src="https://skillicons.dev/icons?i=fastapi" alt="">FastAPI</span>
+      <span class="marquee-sep">✦</span>
+      <span class="marquee-item"><img src="https://skillicons.dev/icons?i=nodejs" alt="">Node.js</span>
+      <span class="marquee-sep">✦</span>
+      <span class="marquee-item"><img src="https://skillicons.dev/icons?i=docker" alt="">Docker</span>
+      <span class="marquee-sep">✦</span>
+      <span class="marquee-item"><img src="https://skillicons.dev/icons?i=postgresql" alt="">PostgreSQL</span>
+      <span class="marquee-sep">✦</span>
+      <span class="marquee-item"><img src="https://skillicons.dev/icons?i=aws" alt="">AWS</span>
+      <span class="marquee-sep">✦</span>
+      <span class="marquee-item"><img src="https://skillicons.dev/icons?i=git" alt="">Git</span>
+      <span class="marquee-sep">✦</span>
+      <span class="marquee-item"><img src="https://skillicons.dev/icons?i=sklearn" alt="">scikit-learn</span>
+      <span class="marquee-sep">✦</span>
+      <span class="marquee-item"><img src="https://skillicons.dev/icons?i=redis" alt="">Redis</span>
+      <span class="marquee-sep">✦</span>
+      <span class="marquee-item"><img src="https://skillicons.dev/icons?i=nextjs" alt="">Next.js</span>
+      <span class="marquee-sep">✦</span>
+      <span class="marquee-item"><img src="https://skillicons.dev/icons?i=tailwind" alt="">Tailwind</span>
+      <span class="marquee-sep">✦</span>
+      <!-- set 2 (duplicate for seamless loop) -->
+      <span class="marquee-item"><img src="https://skillicons.dev/icons?i=python" alt="">Python</span>
+      <span class="marquee-sep">✦</span>
+      <span class="marquee-item"><img src="https://skillicons.dev/icons?i=pytorch" alt="">PyTorch</span>
+      <span class="marquee-sep">✦</span>
+      <span class="marquee-item"><img src="https://skillicons.dev/icons?i=react" alt="">React</span>
+      <span class="marquee-sep">✦</span>
+      <span class="marquee-item"><img src="https://skillicons.dev/icons?i=typescript" alt="">TypeScript</span>
+      <span class="marquee-sep">✦</span>
+      <span class="marquee-item"><img src="https://skillicons.dev/icons?i=fastapi" alt="">FastAPI</span>
+      <span class="marquee-sep">✦</span>
+      <span class="marquee-item"><img src="https://skillicons.dev/icons?i=nodejs" alt="">Node.js</span>
+      <span class="marquee-sep">✦</span>
+      <span class="marquee-item"><img src="https://skillicons.dev/icons?i=docker" alt="">Docker</span>
+      <span class="marquee-sep">✦</span>
+      <span class="marquee-item"><img src="https://skillicons.dev/icons?i=postgresql" alt="">PostgreSQL</span>
+      <span class="marquee-sep">✦</span>
+      <span class="marquee-item"><img src="https://skillicons.dev/icons?i=aws" alt="">AWS</span>
+      <span class="marquee-sep">✦</span>
+      <span class="marquee-item"><img src="https://skillicons.dev/icons?i=git" alt="">Git</span>
+      <span class="marquee-sep">✦</span>
+      <span class="marquee-item"><img src="https://skillicons.dev/icons?i=sklearn" alt="">scikit-learn</span>
+      <span class="marquee-sep">✦</span>
+      <span class="marquee-item"><img src="https://skillicons.dev/icons?i=redis" alt="">Redis</span>
+      <span class="marquee-sep">✦</span>
+      <span class="marquee-item"><img src="https://skillicons.dev/icons?i=nextjs" alt="">Next.js</span>
+      <span class="marquee-sep">✦</span>
+      <span class="marquee-item"><img src="https://skillicons.dev/icons?i=tailwind" alt="">Tailwind</span>
+      <span class="marquee-sep">✦</span>
     </div>
   </div>
 
