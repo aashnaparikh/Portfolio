@@ -179,7 +179,6 @@
       border-radius: 16px;
       padding: 20px 20px 0;
       overflow: hidden;
-      cursor: pointer;
       transition: border-color .3s, box-shadow .3s, transform .3s;
       position: relative;
     }
@@ -234,26 +233,6 @@
       background: #4ade80; animation: liveblink 1.5s ease-in-out infinite;
     }
     @keyframes liveblink { 0%,100% { opacity:1; } 50% { opacity:0.25; } }
-    .exp-toggle {
-      width: 28px; height: 28px; border-radius: 8px; flex-shrink: 0;
-      display: flex; align-items: center; justify-content: center;
-      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
-      color: #55557a; transition: all .25s; cursor: pointer; flex-shrink: 0;
-    }
-    .exp-card.open .exp-toggle {
-      transform: rotate(180deg);
-      background: color-mix(in srgb, var(--card-accent, #818cf8) 12%, transparent);
-      color: var(--card-accent, #a5b4fc);
-      border-color: color-mix(in srgb, var(--card-accent, #818cf8) 30%, transparent);
-    }
-
-    /* Expandable body */
-    .exp-body {
-      max-height: 0; overflow: hidden;
-      transition: max-height 0.45s cubic-bezier(0.22,1,0.36,1);
-    }
-    .exp-card.open .exp-body { max-height: 700px; }
-
     .exp-divider {
       height: 1px;
       background: linear-gradient(90deg, transparent, rgba(255,255,255,0.07), transparent);
@@ -385,7 +364,7 @@
 
     <!-- 1 · FortisBC — LEFT card, RIGHT date -->
     <div class="tl-item left sr">
-      <div class="exp-card" style="--card-accent:#0ea5e9; --card-glow:rgba(14,165,233,0.08); --icon-bg:rgba(14,165,233,0.1); --icon-border:rgba(14,165,233,0.25);" onclick="toggleCard(this)">
+      <div class="exp-card" style="--card-accent:#0ea5e9; --card-glow:rgba(14,165,233,0.08); --icon-bg:rgba(14,165,233,0.1); --icon-border:rgba(14,165,233,0.25);">
         <div class="exp-card-top">
           <div class="exp-ico">⚡</div>
           <div class="exp-meta">
@@ -393,18 +372,13 @@
             <div class="exp-company">FortisBC</div>
             <div class="exp-when">January 2026 – Present <span class="live-badge">LIVE</span></div>
           </div>
-          <div class="exp-toggle">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
-          </div>
         </div>
-        <div class="exp-body">
-          <div class="exp-divider"></div>
-          <ul class="exp-bullets">
-            <li>Built 15+ PLC control modules — PID loops, fault detection, and pressure regulation — maintaining ±2% stability across 50+ sensor and I/O channels for renewable natural gas infrastructure.</li>
-            <li>Developed and maintained 1,000+ lines of production control software with real-time telemetry, structured documentation, and Git-based version control.</li>
-            <li>Led end-to-end integration, testing, and commissioning — resolving 10+ control-system faults to achieve stable, safety-critical 24/7 industrial deployment.</li>
-          </ul>
-        </div>
+        <div class="exp-divider"></div>
+        <ul class="exp-bullets">
+          <li>Built 15+ PLC control modules — PID loops, fault detection, and pressure regulation — maintaining ±2% stability across 50+ sensor and I/O channels for renewable natural gas infrastructure.</li>
+          <li>Developed and maintained 1,000+ lines of production control software with real-time telemetry, structured documentation, and Git-based version control.</li>
+          <li>Led end-to-end integration, testing, and commissioning — resolving 10+ control-system faults to achieve stable, safety-critical 24/7 industrial deployment.</li>
+        </ul>
         <div class="exp-tech">
           <span class="exp-pill">PLC Programming</span><span class="exp-pill">Real-Time Systems</span><span class="exp-pill">PID Control</span>
           <span class="exp-pill">Industrial Automation</span><span class="exp-pill">Fault Detection</span><span class="exp-pill">Telemetry</span>
@@ -423,7 +397,7 @@
       <div class="tl-dot-col">
         <div class="tl-dot live" style="--dot-color:#10b981;"></div>
       </div>
-      <div class="exp-card" style="--card-accent:#10b981; --card-glow:rgba(16,185,129,0.08); --icon-bg:rgba(16,185,129,0.1); --icon-border:rgba(16,185,129,0.25);" onclick="toggleCard(this)">
+      <div class="exp-card" style="--card-accent:#10b981; --card-glow:rgba(16,185,129,0.08); --icon-bg:rgba(16,185,129,0.1); --icon-border:rgba(16,185,129,0.25);">
         <div class="exp-card-top">
           <div class="exp-ico">🎓</div>
           <div class="exp-meta">
@@ -431,20 +405,15 @@
             <div class="exp-company">Engineering &amp; Computer Science Faculty – UVic</div>
             <div class="exp-when">January 2026 – Present <span class="live-badge">LIVE</span></div>
           </div>
-          <div class="exp-toggle">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
-          </div>
         </div>
-        <div class="exp-body">
-          <div class="exp-divider"></div>
-          <ul class="exp-bullets">
-            <li>Conduct research alongside ECS faculty at UVic — developing software tools, data pipelines, and applying CS fundamentals across the full research lifecycle from problem formulation through implementation and academic publication.</li>
-            <li>Collaborated directly with ECS faculty on active research initiatives, translating open academic problems into working software prototypes and experimental systems.</li>
-            <li>Developed and maintained research tooling, automation scripts, and data processing pipelines in Python to accelerate experiment cycles and ensure reproducible results.</li>
-            <li>Applied core CS fundamentals — algorithms, data structures, systems design — to assist in formulating experiment methodology, validating models, and interpreting quantitative outcomes.</li>
-            <li>Contributed to technical documentation, internal research reports, and supported preparation of materials for academic publication and faculty presentations.</li>
-          </ul>
-        </div>
+        <div class="exp-divider"></div>
+        <ul class="exp-bullets">
+          <li>Conduct research alongside ECS faculty at UVic — developing software tools, data pipelines, and applying CS fundamentals across the full research lifecycle from problem formulation through implementation and academic publication.</li>
+          <li>Collaborated directly with ECS faculty on active research initiatives, translating open academic problems into working software prototypes and experimental systems.</li>
+          <li>Developed and maintained research tooling, automation scripts, and data processing pipelines in Python to accelerate experiment cycles and ensure reproducible results.</li>
+          <li>Applied core CS fundamentals — algorithms, data structures, systems design — to assist in formulating experiment methodology, validating models, and interpreting quantitative outcomes.</li>
+          <li>Contributed to technical documentation, internal research reports, and supported preparation of materials for academic publication and faculty presentations.</li>
+        </ul>
         <div class="exp-tech">
           <span class="exp-pill">Python</span><span class="exp-pill">NumPy</span><span class="exp-pill">Data Analysis</span>
           <span class="exp-pill">Algorithm Design</span><span class="exp-pill">Research Methods</span><span class="exp-pill">Automation Scripts</span>
@@ -455,7 +424,7 @@
 
     <!-- 3 · SOLIDS Lab — LEFT card, RIGHT date -->
     <div class="tl-item left sr">
-      <div class="exp-card" style="--card-accent:#818cf8; --card-glow:rgba(129,140,248,0.08); --icon-bg:rgba(129,140,248,0.1); --icon-border:rgba(129,140,248,0.25);" onclick="toggleCard(this)">
+      <div class="exp-card" style="--card-accent:#818cf8; --card-glow:rgba(129,140,248,0.08); --icon-bg:rgba(129,140,248,0.1); --icon-border:rgba(129,140,248,0.25);">
         <div class="exp-card-top">
           <div class="exp-ico">🔬</div>
           <div class="exp-meta">
@@ -463,20 +432,15 @@
             <div class="exp-company">SOLIDS Lab – UVic</div>
             <div class="exp-when">January 2026 – Present <span class="live-badge">LIVE</span></div>
           </div>
-          <div class="exp-toggle">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
-          </div>
         </div>
-        <div class="exp-body">
-          <div class="exp-divider"></div>
-          <ul class="exp-bullets">
-            <li>Build Python-based ML pipelines and predictive models for distributed marine sensor networks at UVic's SOLIDS Lab — processing 10,000+ multi-sensor data points to detect ecosystem stressors and anomalies in underwater sensing arrays.</li>
-            <li>Engineered Python-based ML pipelines ingesting and processing 10k+ multi-sensor environmental data points from distributed underwater sensor arrays, enabling automated detection of marine ecosystem stressors.</li>
-            <li>Built time-series forecasting and predictive models (scikit-learn, pandas) for continuous analysis of sensor drift, anomaly detection, and environmental trend identification across distributed network nodes.</li>
-            <li>Conducted end-to-end cybersecurity threat modeling for marine sensing infrastructure — mapping attack surfaces, analyzing communication protocols, and prototyping secure data-relay components.</li>
-            <li>Developed interactive data visualization dashboards for real-time sensor analytics; work contributed to an upcoming peer-reviewed publication on secure distributed environmental monitoring.</li>
-          </ul>
-        </div>
+        <div class="exp-divider"></div>
+        <ul class="exp-bullets">
+          <li>Build Python-based ML pipelines and predictive models for distributed marine sensor networks at UVic's SOLIDS Lab — processing 10,000+ multi-sensor data points to detect ecosystem stressors and anomalies in underwater sensing arrays.</li>
+          <li>Engineered Python-based ML pipelines ingesting and processing 10k+ multi-sensor environmental data points from distributed underwater sensor arrays, enabling automated detection of marine ecosystem stressors.</li>
+          <li>Built time-series forecasting and predictive models (scikit-learn, pandas) for continuous analysis of sensor drift, anomaly detection, and environmental trend identification across distributed network nodes.</li>
+          <li>Conducted end-to-end cybersecurity threat modeling for marine sensing infrastructure — mapping attack surfaces, analyzing communication protocols, and prototyping secure data-relay components.</li>
+          <li>Developed interactive data visualization dashboards for real-time sensor analytics; work contributed to an upcoming peer-reviewed publication on secure distributed environmental monitoring.</li>
+        </ul>
         <div class="exp-tech">
           <span class="exp-pill">Python</span><span class="exp-pill">scikit-learn</span><span class="exp-pill">pandas</span>
           <span class="exp-pill">Machine Learning</span><span class="exp-pill">Time-Series Analysis</span><span class="exp-pill">Anomaly Detection</span>
@@ -495,7 +459,7 @@
       <div class="tl-dot-col">
         <div class="tl-dot" style="--dot-color:#f472b6;"></div>
       </div>
-      <div class="exp-card" style="--card-accent:#f472b6; --card-glow:rgba(244,114,182,0.08); --icon-bg:rgba(244,114,182,0.1); --icon-border:rgba(244,114,182,0.25);" onclick="toggleCard(this)">
+      <div class="exp-card" style="--card-accent:#f472b6; --card-glow:rgba(244,114,182,0.08); --icon-bg:rgba(244,114,182,0.1); --icon-border:rgba(244,114,182,0.25);">
         <div class="exp-card-top">
           <div class="exp-ico">🏥</div>
           <div class="exp-meta">
@@ -503,20 +467,15 @@
             <div class="exp-company">Fraser Health Authority</div>
             <div class="exp-when">September 2025 – December 2025</div>
           </div>
-          <div class="exp-toggle">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
-          </div>
         </div>
-        <div class="exp-body">
-          <div class="exp-divider"></div>
-          <ul class="exp-bullets">
-            <li>Led full-stack development of a hospital-grade pediatric MRI simulator at Fraser Health — architecting C++/Python backend systems, FastAPI services, and a React/Redux clinician interface to prepare children for MRI without sedation.</li>
-            <li>Architected and built a hospital-grade pediatric MRI simulator in C++ and Python, accurately reproducing scanner sounds and visual sequences to prepare children for procedures without requiring sedation.</li>
-            <li>Designed low-latency real-time control logic and FastAPI backend services to handle simulation sequencing, audio playback, and dynamic parameter adjustment with sub-100ms response times.</li>
-            <li>Built a React/Redux clinician interface for configuring and running simulation sessions — enabling rapid iteration cycles and usability testing directly with Fraser Health clinical staff.</li>
-            <li>Defined Git branching strategy, code review process, and integration test suites across a multi-person team; delivered a working prototype on schedule for clinical evaluation.</li>
-          </ul>
-        </div>
+        <div class="exp-divider"></div>
+        <ul class="exp-bullets">
+          <li>Led full-stack development of a hospital-grade pediatric MRI simulator at Fraser Health — architecting C++/Python backend systems, FastAPI services, and a React/Redux clinician interface to prepare children for MRI without sedation.</li>
+          <li>Architected and built a hospital-grade pediatric MRI simulator in C++ and Python, accurately reproducing scanner sounds and visual sequences to prepare children for procedures without requiring sedation.</li>
+          <li>Designed low-latency real-time control logic and FastAPI backend services to handle simulation sequencing, audio playback, and dynamic parameter adjustment with sub-100ms response times.</li>
+          <li>Built a React/Redux clinician interface for configuring and running simulation sessions — enabling rapid iteration cycles and usability testing directly with Fraser Health clinical staff.</li>
+          <li>Defined Git branching strategy, code review process, and integration test suites across a multi-person team; delivered a working prototype on schedule for clinical evaluation.</li>
+        </ul>
         <div class="exp-tech">
           <span class="exp-pill">C++</span><span class="exp-pill">Python</span><span class="exp-pill">React</span><span class="exp-pill">Redux</span>
           <span class="exp-pill">FastAPI</span><span class="exp-pill">Real-Time Systems</span><span class="exp-pill">Audio Processing</span>
@@ -527,7 +486,7 @@
 
     <!-- 5 · UVic Library — LEFT card, RIGHT date -->
     <div class="tl-item left sr">
-      <div class="exp-card" style="--card-accent:#fbbf24; --card-glow:rgba(251,191,36,0.07); --icon-bg:rgba(251,191,36,0.1); --icon-border:rgba(251,191,36,0.25);" onclick="toggleCard(this)">
+      <div class="exp-card" style="--card-accent:#fbbf24; --card-glow:rgba(251,191,36,0.07); --icon-bg:rgba(251,191,36,0.1); --icon-border:rgba(251,191,36,0.25);">
         <div class="exp-card-top">
           <div class="exp-ico">🏛️</div>
           <div class="exp-meta">
@@ -535,20 +494,15 @@
             <div class="exp-company">UVic McPherson Library · Digital Scholarship Commons</div>
             <div class="exp-when">September 2025 – December 2025</div>
           </div>
-          <div class="exp-toggle">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
-          </div>
         </div>
-        <div class="exp-body">
-          <div class="exp-divider"></div>
-          <ul class="exp-bullets">
-            <li>Supported digital fabrication and 3D design workflows at UVic's Digital Scholarship Commons — producing CAD models, mechanical assemblies, and prototypes in Fusion 360, SolidWorks, and Blender for student and faculty research projects.</li>
-            <li>Designed and produced 3D models, enclosures, and mechanical assemblies in Fusion 360, SolidWorks, and Blender for diverse student and faculty research projects ranging from scientific instruments to interactive art installations.</li>
-            <li>Diagnosed and resolved modeling, slicing, and hardware issues across FDM and resin printers — reducing print failure rates and shortening prototype turnaround times for students under deadline.</li>
-            <li>Delivered one-on-one technical consultations on CAD methodology, tolerancing, and design-for-print best practices, enabling students with no prior CAD experience to produce functional prototypes.</li>
-            <li>Co-facilitated workshops on digital fabrication tools and maker-space equipment, reaching 50+ students per term and building a culture of iterative, hands-on design thinking at UVic.</li>
-          </ul>
-        </div>
+        <div class="exp-divider"></div>
+        <ul class="exp-bullets">
+          <li>Supported digital fabrication and 3D design workflows at UVic's Digital Scholarship Commons — producing CAD models, mechanical assemblies, and prototypes in Fusion 360, SolidWorks, and Blender for student and faculty research projects.</li>
+          <li>Designed and produced 3D models, enclosures, and mechanical assemblies in Fusion 360, SolidWorks, and Blender for diverse student and faculty research projects ranging from scientific instruments to interactive art installations.</li>
+          <li>Diagnosed and resolved modeling, slicing, and hardware issues across FDM and resin printers — reducing print failure rates and shortening prototype turnaround times for students under deadline.</li>
+          <li>Delivered one-on-one technical consultations on CAD methodology, tolerancing, and design-for-print best practices, enabling students with no prior CAD experience to produce functional prototypes.</li>
+          <li>Co-facilitated workshops on digital fabrication tools and maker-space equipment, reaching 50+ students per term and building a culture of iterative, hands-on design thinking at UVic.</li>
+        </ul>
         <div class="exp-tech">
           <span class="exp-pill">Fusion 360</span><span class="exp-pill">SolidWorks</span><span class="exp-pill">Blender</span>
           <span class="exp-pill">FDM Printing</span><span class="exp-pill">Resin Printing</span><span class="exp-pill">CAD Design</span>
@@ -600,18 +554,6 @@
     bar.style.width = (s / t * 100) + '%';
     scrollBtn.classList.toggle('show', s > 300);
   }, { passive: true });
-
-  function toggleCard(card) {
-    const wasOpen = card.classList.contains('open');
-    document.querySelectorAll('.exp-card.open').forEach(c => c.classList.remove('open'));
-    if (!wasOpen) card.classList.add('open');
-  }
-
-  // Auto-open first card on load
-  window.addEventListener('load', () => {
-    const first = document.querySelector('.exp-card');
-    if (first) first.classList.add('open');
-  });
 
   // Scroll reveal
   (function(){
