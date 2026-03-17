@@ -101,6 +101,60 @@
     .estat-n { font-size: 1.4rem; font-weight: 800; letter-spacing: -1px; background: linear-gradient(120deg,#fff 0%,#c4b5fd 100%); -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text; }
     .estat-l { font-size: 0.62rem; color: #33334a; text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
 
+    /* ── POPULAR SKILLS ── */
+    .pop-skills {
+      background: linear-gradient(145deg, #0e0e16 0%, #0b0b12 100%);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 20px;
+      padding: 22px 26px 20px;
+      margin-bottom: 8px;
+      position: relative; overflow: hidden;
+    }
+    .pop-skills::before {
+      content: ''; position: absolute; inset: 0; border-radius: 20px; pointer-events: none;
+      background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(129,140,248,0.05), transparent 70%);
+    }
+    .pop-skills-top {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 18px; position: relative; z-index: 1;
+    }
+    .pop-skills-title {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+      color: #55557a; display: flex; align-items: center; gap: 8px;
+    }
+    .pop-skills-title::before {
+      content: ''; width: 16px; height: 1px;
+      background: linear-gradient(90deg, #818cf8, transparent);
+    }
+    .pop-skills-link {
+      font-size: 0.69rem; font-weight: 600; color: #4a4a6a;
+      text-decoration: none; display: flex; align-items: center; gap: 4px;
+      transition: color .2s;
+    }
+    .pop-skills-link:hover { color: #818cf8; }
+    .pop-skills-rows { display: flex; flex-direction: column; gap: 12px; position: relative; z-index: 1; }
+    .pop-skills-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .pop-row-label {
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+      color: #2e2e46; white-space: nowrap; min-width: 68px;
+    }
+    .pop-chip {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 11px; border-radius: 9px;
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07);
+      font-size: 0.73rem; font-weight: 500; color: #7878a0;
+      transition: all .2s; white-space: nowrap;
+    }
+    .pop-chip img { width: 16px; height: 16px; border-radius: 3px; }
+    .pop-chip:hover {
+      background: rgba(129,140,248,0.09); border-color: rgba(129,140,248,0.28);
+      color: #c4b5fd; transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3), 0 0 10px rgba(129,140,248,0.12);
+    }
+    .pop-chip.lang:hover  { background: rgba(56,189,248,0.08);  border-color: rgba(56,189,248,0.25);  color: #7dd3fc; box-shadow: 0 4px 12px rgba(0,0,0,0.3), 0 0 10px rgba(56,189,248,0.1); }
+    .pop-chip.frame:hover { background: rgba(52,211,153,0.08);  border-color: rgba(52,211,153,0.25);  color: #6ee7b7; box-shadow: 0 4px 12px rgba(0,0,0,0.3), 0 0 10px rgba(52,211,153,0.1); }
+    .pop-chip.domain:hover{ background: rgba(244,114,182,0.08); border-color: rgba(244,114,182,0.25); color: #f9a8d4; box-shadow: 0 4px 12px rgba(0,0,0,0.3), 0 0 10px rgba(244,114,182,0.1); }
+
     /* ── TIMELINE WRAPPER ── */
     .timeline-wrap {
       position: relative;
@@ -356,6 +410,43 @@
       <div class="estat"><div class="estat-n">3</div><div class="estat-l">Current</div></div>
       <div class="estat"><div class="estat-n">3+</div><div class="estat-l">Industries</div></div>
       <div class="estat"><div class="estat-n">UVic</div><div class="estat-l">Based</div></div>
+    </div>
+  </div>
+
+  <!-- POPULAR SKILLS -->
+  <div class="pop-skills sr">
+    <div class="pop-skills-top">
+      <span class="pop-skills-title">Popular Skills</span>
+      <a href="skills.html" class="pop-skills-link">View all skills
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+    <div class="pop-skills-rows">
+      <div class="pop-skills-row">
+        <span class="pop-row-label">Languages</span>
+        <span class="pop-chip lang"><img src="https://skillicons.dev/icons?i=python" alt="">Python</span>
+        <span class="pop-chip lang"><img src="https://skillicons.dev/icons?i=cpp" alt="">C++</span>
+        <span class="pop-chip lang"><img src="https://skillicons.dev/icons?i=js" alt="">JavaScript</span>
+        <span class="pop-chip lang"><img src="https://skillicons.dev/icons?i=java" alt="">Java</span>
+        <span class="pop-chip lang"><img src="https://skillicons.dev/icons?i=r" alt="">R</span>
+      </div>
+      <div class="pop-skills-row">
+        <span class="pop-row-label">Frameworks</span>
+        <span class="pop-chip frame"><img src="https://skillicons.dev/icons?i=react" alt="">React</span>
+        <span class="pop-chip frame"><img src="https://skillicons.dev/icons?i=fastapi" alt="">FastAPI</span>
+        <span class="pop-chip frame"><img src="https://skillicons.dev/icons?i=redux" alt="">Redux</span>
+        <span class="pop-chip frame"><img src="https://skillicons.dev/icons?i=git" alt="">Git</span>
+        <span class="pop-chip frame">🧪 scikit-learn</span>
+        <span class="pop-chip frame">🐼 pandas</span>
+      </div>
+      <div class="pop-skills-row">
+        <span class="pop-row-label">Domain</span>
+        <span class="pop-chip domain">⚙️ PLC Programming</span>
+        <span class="pop-chip domain">🤖 Machine Learning</span>
+        <span class="pop-chip domain">⏱️ Real-Time Systems</span>
+        <span class="pop-chip domain">🖥️ CAD Design</span>
+        <span class="pop-chip domain">🔒 Cybersecurity</span>
+      </div>
     </div>
   </div>
 
