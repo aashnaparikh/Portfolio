@@ -141,6 +141,105 @@
       padding: 1px 5px; margin-left: 4px; vertical-align: middle;
     }
 
+    /* ── PROJECT OVERVIEW BANNER ── */
+    .proj-banner {
+      background: linear-gradient(145deg, #0e0e16 0%, #0b0b12 100%);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 20px;
+      padding: 0;
+      margin-bottom: 32px;
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      position: relative; overflow: hidden;
+    }
+    .proj-banner::before {
+      content: ''; position: absolute; inset: 0; border-radius: 20px; pointer-events: none;
+      background:
+        radial-gradient(ellipse 55% 100% at 0% 50%, rgba(129,140,248,0.06), transparent 65%),
+        radial-gradient(ellipse 55% 100% at 100% 50%, rgba(192,132,252,0.04), transparent 65%);
+    }
+    .proj-banner > * { position: relative; z-index: 1; }
+
+    /* Left panel — area stats */
+    .pb-left {
+      padding: 22px 22px 22px 26px;
+      border-right: 1px solid rgba(255,255,255,0.05);
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .pb-eyebrow {
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+      color: #2e2e46; margin-bottom: 6px;
+      display: flex; align-items: center; gap: 7px;
+    }
+    .pb-eyebrow::before {
+      content: ''; width: 14px; height: 1px;
+      background: linear-gradient(90deg, #818cf8, transparent);
+    }
+    .pb-cat {
+      display: flex; align-items: center; gap: 9px;
+      padding: 7px 11px; border-radius: 10px;
+      background: rgba(255,255,255,0.025);
+      border: 1px solid rgba(255,255,255,0.05);
+      transition: all .2s;
+    }
+    .pb-cat:hover {
+      background: rgba(255,255,255,0.05);
+      border-color: rgba(255,255,255,0.09);
+      transform: translateX(2px);
+    }
+    .pb-cat-ico { font-size: 0.85rem; flex-shrink: 0; }
+    .pb-cat-name { font-size: 0.7rem; font-weight: 500; color: #55557a; flex: 1; }
+    .pb-cat-count {
+      font-size: 0.62rem; font-weight: 700; color: #818cf8;
+      background: rgba(129,140,248,0.1); border: 1px solid rgba(129,140,248,0.18);
+      border-radius: 8px; padding: 1px 6px;
+    }
+
+    /* Right panel — tech stack rows */
+    .pb-right {
+      padding: 22px 24px 20px;
+      display: flex; flex-direction: column; gap: 13px;
+    }
+    .pb-top {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 2px;
+    }
+    .pb-title {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+      color: #55557a; display: flex; align-items: center; gap: 8px;
+    }
+    .pb-title::before {
+      content: ''; width: 14px; height: 1px;
+      background: linear-gradient(90deg, #818cf8, transparent);
+    }
+    .pb-link {
+      font-size: 0.69rem; font-weight: 600; color: #4a4a6a;
+      text-decoration: none; display: flex; align-items: center; gap: 4px;
+      transition: color .2s;
+    }
+    .pb-link:hover { color: #818cf8; }
+    .pb-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .pb-row-lbl {
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+      color: #2e2e46; white-space: nowrap; min-width: 72px;
+    }
+    .ov-chip {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 11px; border-radius: 9px;
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07);
+      font-size: 0.72rem; font-weight: 500; color: #7878a0;
+      transition: all .2s; white-space: nowrap;
+    }
+    .ov-chip img { width: 16px; height: 16px; border-radius: 3px; }
+    .ov-chip.lang:hover  { background: rgba(56,189,248,0.09);  border-color: rgba(56,189,248,0.28);  color: #7dd3fc; transform: translateY(-1px); box-shadow: 0 4px 10px rgba(0,0,0,0.3), 0 0 8px rgba(56,189,248,0.1); }
+    .ov-chip.frame:hover { background: rgba(52,211,153,0.09);  border-color: rgba(52,211,153,0.28);  color: #6ee7b7; transform: translateY(-1px); box-shadow: 0 4px 10px rgba(0,0,0,0.3), 0 0 8px rgba(52,211,153,0.1); }
+    .ov-chip.tech:hover  { background: rgba(244,114,182,0.09); border-color: rgba(244,114,182,0.28); color: #f9a8d4; transform: translateY(-1px); box-shadow: 0 4px 10px rgba(0,0,0,0.3), 0 0 8px rgba(244,114,182,0.1); }
+
+    @media (max-width: 680px) {
+      .proj-banner { grid-template-columns: 1fr; }
+      .pb-left { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    }
+
     /* ── SECTION LABELS ── */
     .section-label {
       display: flex; align-items: center; gap: 10px;
@@ -398,6 +497,74 @@
       <button class="filter-btn" data-filter="algorithms">🔢 Algorithms <span class="filter-count">3</span></button>
       <button class="filter-btn" data-filter="creative">🎨 Creative <span class="filter-count">2</span></button>
       <button class="filter-btn" data-filter="engineering">🏗️ Engineering <span class="filter-count">2</span></button>
+    </div>
+  </div>
+
+  <!-- PROJECT OVERVIEW BANNER -->
+  <div class="proj-banner sr">
+    <!-- Left: Areas of Focus -->
+    <div class="pb-left">
+      <div class="pb-eyebrow">Areas of Focus</div>
+      <div class="pb-cat">
+        <span class="pb-cat-ico">🤖</span>
+        <span class="pb-cat-name">AI &amp; Machine Learning</span>
+        <span class="pb-cat-count">6</span>
+      </div>
+      <div class="pb-cat">
+        <span class="pb-cat-ico">🌐</span>
+        <span class="pb-cat-name">Full-Stack</span>
+        <span class="pb-cat-count">6</span>
+      </div>
+      <div class="pb-cat">
+        <span class="pb-cat-ico">🔢</span>
+        <span class="pb-cat-name">Algorithms</span>
+        <span class="pb-cat-count">3</span>
+      </div>
+      <div class="pb-cat">
+        <span class="pb-cat-ico">⚙️</span>
+        <span class="pb-cat-name">Systems &amp; Engineering</span>
+        <span class="pb-cat-count">4</span>
+      </div>
+      <div class="pb-cat">
+        <span class="pb-cat-ico">🎨</span>
+        <span class="pb-cat-name">Creative</span>
+        <span class="pb-cat-count">2</span>
+      </div>
+    </div>
+    <!-- Right: Core Stack -->
+    <div class="pb-right">
+      <div class="pb-top">
+        <span class="pb-title">Core Stack</span>
+        <a href="https://github.com/aashnaparikh" target="_blank" class="pb-link">
+          View on GitHub
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+      <div class="pb-row">
+        <span class="pb-row-lbl">Languages</span>
+        <span class="ov-chip lang"><img src="https://skillicons.dev/icons?i=python" alt="">Python</span>
+        <span class="ov-chip lang"><img src="https://skillicons.dev/icons?i=java" alt="">Java</span>
+        <span class="ov-chip lang"><img src="https://skillicons.dev/icons?i=js" alt="">JavaScript</span>
+        <span class="ov-chip lang"><img src="https://skillicons.dev/icons?i=cpp" alt="">C++</span>
+        <span class="ov-chip lang"><img src="https://skillicons.dev/icons?i=r" alt="">R</span>
+        <span class="ov-chip lang">📟 AVR Assembly</span>
+      </div>
+      <div class="pb-row">
+        <span class="pb-row-lbl">Frameworks</span>
+        <span class="ov-chip frame"><img src="https://skillicons.dev/icons?i=react" alt="">React</span>
+        <span class="ov-chip frame"><img src="https://skillicons.dev/icons?i=spring" alt="">Spring Boot</span>
+        <span class="ov-chip frame"><img src="https://skillicons.dev/icons?i=fastapi" alt="">FastAPI</span>
+        <span class="ov-chip frame"><img src="https://skillicons.dev/icons?i=redux" alt="">Redux</span>
+        <span class="ov-chip frame"><img src="https://skillicons.dev/icons?i=tensorflow" alt="">TensorFlow</span>
+      </div>
+      <div class="pb-row">
+        <span class="pb-row-lbl">Techniques</span>
+        <span class="ov-chip tech">🧠 Deep Learning</span>
+        <span class="ov-chip tech">🔗 REST APIs</span>
+        <span class="ov-chip tech">📈 Graph Algorithms</span>
+        <span class="ov-chip tech">⏱️ Real-Time</span>
+        <span class="ov-chip tech">🔒 Auth &amp; Security</span>
+      </div>
     </div>
   </div>
 
