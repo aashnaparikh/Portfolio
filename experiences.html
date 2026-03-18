@@ -6,378 +6,718 @@
   <title>Experience – Aashna Parikh</title>
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; scroll-padding-top: 70px; }
+    html { scroll-behavior: smooth; }
 
-    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar { width: 4px; }
     ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: rgba(129,140,248,0.2); border-radius: 10px; }
-    ::-webkit-scrollbar-thumb:hover { background: rgba(129,140,248,0.4); }
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 10px; }
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: #07070c;
-      background-image:
-        radial-gradient(ellipse 100% 60% at 50% 0%, rgba(99,102,241,0.12) 0%, transparent 60%),
-        radial-gradient(ellipse 50% 40% at 90% 20%, rgba(139,92,246,0.06) 0%, transparent 55%),
-        radial-gradient(ellipse 40% 35% at 10% 80%, rgba(20,184,166,0.04) 0%, transparent 50%);
+      background: #06060b;
       color: #e2e2f0;
       min-height: 100vh;
       overflow-x: hidden;
     }
 
-    /* ── PROGRESS BAR ── */
-    #progress-bar {
-      position: fixed; top: 0; left: 0; height: 2px; width: 0%;
-      background: linear-gradient(90deg, #818cf8, #c084fc, #38bdf8);
-      z-index: 200; transition: width 0.1s linear;
-      box-shadow: 0 0 8px rgba(129,140,248,0.6);
+    /* Ambient background that shifts with track */
+    .ambient-bg {
+      position: fixed; inset: 0; pointer-events: none; z-index: 0;
+      background:
+        radial-gradient(ellipse 70% 55% at 50% -10%, var(--ambient, rgba(129,140,248,0.13)) 0%, transparent 65%),
+        radial-gradient(ellipse 40% 40% at 85% 60%, var(--ambient2, rgba(129,140,248,0.05)) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 50% at 10% 80%, rgba(0,0,0,0.4) 0%, transparent 70%);
+      transition: background 1s ease;
     }
 
     /* ── NAV ── */
     nav {
-      position: fixed; top: 0; width: 100%; height: 54px;
-      background: rgba(8,8,13,0.88);
-      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(255,255,255,0.06);
+      position: fixed; top: 0; width: 100%; height: 56px;
+      background: rgba(6,6,11,0.75);
+      backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
       z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
-      padding: 0 30px;
-      animation: navDrop 0.45s cubic-bezier(0.22,1,0.36,1) both;
+      padding: 0 32px;
+      animation: navDrop 0.5s cubic-bezier(0.22,1,0.36,1) both;
     }
     @keyframes navDrop { from { opacity:0; transform:translateY(-14px); } to { opacity:1; transform:translateY(0); } }
     .nav-logo {
-      font-size: 0.95rem; font-weight: 700;
+      font-size: 0.92rem; font-weight: 700;
       background: linear-gradient(90deg, #fff 0%, #c4b5fd 100%);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
       text-decoration: none;
     }
-    .nav-links { display: flex; gap: 22px; list-style: none; }
-    .nav-links a { color: #555; font-size: 0.79rem; text-decoration: none; transition: color .2s; }
-    .nav-links a:hover { color: #e5e5e5; }
-    .nav-links a.active { color: #c4b5fd; }
+    .nav-links { display: flex; gap: 24px; list-style: none; }
+    .nav-links a { color: #444; font-size: 0.77rem; text-decoration: none; transition: color .2s; }
+    .nav-links a:hover { color: #ccc; }
+    .nav-links a.active { color: #a5b4fc; }
     .nav-cta {
-      background: linear-gradient(135deg, #818cf8 0%, #6366f1 100%);
+      background: linear-gradient(135deg, #818cf8, #6366f1);
       color: #fff; border: none; border-radius: 8px;
-      padding: 7px 16px; font-size: 0.79rem; font-weight: 600;
-      cursor: pointer; text-decoration: none; white-space: nowrap;
+      padding: 7px 17px; font-size: 0.77rem; font-weight: 600;
+      cursor: pointer; text-decoration: none;
       box-shadow: 0 4px 14px rgba(99,102,241,0.35);
-      transition: opacity .2s, box-shadow .2s;
+      transition: opacity .2s, transform .2s;
     }
-    .nav-cta:hover { opacity: 0.9; box-shadow: 0 4px 20px rgba(99,102,241,0.5); }
+    .nav-cta:hover { opacity: 0.88; transform: translateY(-1px); }
 
     /* ── PAGE ── */
-    .page { max-width: 980px; margin: 0 auto; padding: 96px 24px 64px; }
+    .page {
+      position: relative; z-index: 1;
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      padding-top: 56px;
+    }
 
     /* ── HEADER ── */
-    .page-header { text-align: center; padding: 28px 0 56px; }
+    .page-header {
+      text-align: center;
+      padding: 44px 24px 28px;
+      animation: riseIn 0.65s cubic-bezier(0.22,1,0.36,1) 0.1s both;
+    }
+    @keyframes riseIn { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:translateY(0); } }
     .page-eyebrow {
       display: inline-flex; align-items: center; gap: 7px;
-      font-size: 0.68rem; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase;
-      color: #818cf8; margin-bottom: 20px;
-      padding: 5px 14px; border-radius: 20px;
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 2.8px; text-transform: uppercase;
+      color: #818cf8; margin-bottom: 16px;
+      padding: 6px 16px; border-radius: 20px;
       background: rgba(129,140,248,0.08); border: 1px solid rgba(129,140,248,0.18);
     }
     .page-title {
-      font-size: clamp(3rem, 7vw, 5.5rem);
-      font-weight: 900; letter-spacing: -3px; line-height: 0.95;
-      background: linear-gradient(135deg, #ffffff 0%, #e8e8ff 40%, #c4b5fd 75%, #818cf8 100%);
+      font-size: clamp(3rem, 7vw, 6rem);
+      font-weight: 900; letter-spacing: -3px; line-height: 0.9;
+      background: linear-gradient(145deg, #ffffff 0%, #e0e0ff 35%, #c4b5fd 70%, #818cf8 100%);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-      margin-bottom: 20px;
+      margin-bottom: 12px;
     }
-    .page-sub {
-      font-size: 0.93rem; color: #60607a; max-width: 480px; margin: 0 auto;
-      line-height: 1.7;
+    .page-sub { font-size: 0.88rem; color: #38385a; letter-spacing: 0.2px; }
+
+    /* ── MAIN STAGE ── */
+    .stage {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 360px 1fr 400px;
+      max-width: 1300px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 12px 28px 56px;
+      gap: 0;
+      align-items: start;
     }
 
-    /* ── STATS ── */
-    .exp-stats {
-      display: inline-flex; gap: 0;
-      border-radius: 14px; border: 1px solid rgba(255,255,255,0.06);
-      background: rgba(255,255,255,0.02); overflow: hidden;
-      margin-top: 32px;
+    /* ══════════════════════════════════════
+       TRACKLIST
+    ══════════════════════════════════════ */
+    .tracklist {
+      position: sticky; top: 70px;
+      padding-right: 20px;
     }
-    .estat { padding: 12px 28px; text-align: center; border-right: 1px solid rgba(255,255,255,0.06); }
-    .estat:last-child { border-right: none; }
-    .estat-n { font-size: 1.4rem; font-weight: 800; letter-spacing: -1px; background: linear-gradient(120deg,#fff 0%,#c4b5fd 100%); -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text; }
-    .estat-l { font-size: 0.62rem; color: #33334a; text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
-
-    /* ── POPULAR SKILLS ── */
-    .pop-skills {
-      background: linear-gradient(145deg, #0e0e16 0%, #0b0b12 100%);
-      border: 1px solid rgba(255,255,255,0.07);
-      border-radius: 20px;
-      padding: 22px 26px 20px;
-      margin-bottom: 8px;
-      position: relative; overflow: hidden;
-    }
-    .pop-skills::before {
-      content: ''; position: absolute; inset: 0; border-radius: 20px; pointer-events: none;
-      background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(129,140,248,0.05), transparent 70%);
-    }
-    .pop-skills-top {
+    .tl-header {
       display: flex; align-items: center; justify-content: space-between;
-      margin-bottom: 18px; position: relative; z-index: 1;
+      padding: 0 8px 18px;
     }
-    .pop-skills-title {
-      font-size: 0.68rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
-      color: #55557a; display: flex; align-items: center; gap: 8px;
+    .tl-header-label {
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase;
+      color: #303050;
     }
-    .pop-skills-title::before {
-      content: ''; width: 16px; height: 1px;
-      background: linear-gradient(90deg, #818cf8, transparent);
+    .tl-header-count {
+      font-size: 0.62rem; color: #252538; font-weight: 600;
     }
-    .pop-skills-link {
-      font-size: 0.69rem; font-weight: 600; color: #4a4a6a;
-      text-decoration: none; display: flex; align-items: center; gap: 4px;
-      transition: color .2s;
+    .track {
+      display: flex; align-items: center; gap: 13px;
+      padding: 13px 14px; border-radius: 16px; cursor: pointer;
+      transition: background .22s, transform .22s, border-color .22s;
+      margin-bottom: 4px; position: relative;
+      border: 1px solid transparent;
     }
-    .pop-skills-link:hover { color: #818cf8; }
-    .pop-skills-rows { display: flex; flex-direction: column; gap: 12px; position: relative; z-index: 1; }
-    .pop-skills-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-    .pop-row-label {
-      font-size: 0.6rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
-      color: #2e2e46; white-space: nowrap; min-width: 68px;
+    .track:hover { background: rgba(255,255,255,0.04); transform: translateX(5px); }
+    .track.active {
+      background: rgba(255,255,255,0.065);
+      border-color: rgba(255,255,255,0.08);
+      transform: translateX(5px);
     }
-    .pop-chip {
-      display: inline-flex; align-items: center; gap: 6px;
-      padding: 5px 11px; border-radius: 9px;
-      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07);
-      font-size: 0.73rem; font-weight: 500; color: #7878a0;
-      transition: all .2s; white-space: nowrap;
-    }
-    .pop-chip img { width: 16px; height: 16px; border-radius: 3px; }
-    .pop-chip:hover {
-      background: rgba(129,140,248,0.09); border-color: rgba(129,140,248,0.28);
-      color: #c4b5fd; transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3), 0 0 10px rgba(129,140,248,0.12);
-    }
-    .pop-chip.lang:hover  { background: rgba(56,189,248,0.08);  border-color: rgba(56,189,248,0.25);  color: #7dd3fc; box-shadow: 0 4px 12px rgba(0,0,0,0.3), 0 0 10px rgba(56,189,248,0.1); }
-    .pop-chip.frame:hover { background: rgba(52,211,153,0.08);  border-color: rgba(52,211,153,0.25);  color: #6ee7b7; box-shadow: 0 4px 12px rgba(0,0,0,0.3), 0 0 10px rgba(52,211,153,0.1); }
-    .pop-chip.domain:hover{ background: rgba(244,114,182,0.08); border-color: rgba(244,114,182,0.25); color: #f9a8d4; box-shadow: 0 4px 12px rgba(0,0,0,0.3), 0 0 10px rgba(244,114,182,0.1); }
 
-    /* ── TIMELINE WRAPPER ── */
-    .timeline-wrap {
+    /* EQ bars + track number */
+    .track-num-wrap {
+      width: 24px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .track-num {
+      font-size: 0.65rem; font-weight: 700; color: #303050;
+      font-variant-numeric: tabular-nums;
+    }
+    .track.active .track-num { display: none; }
+    .track-eq {
+      display: none; align-items: flex-end; gap: 2px; height: 14px;
+    }
+    .track.active .track-eq { display: flex; }
+    .track-eq span {
+      display: block; width: 3px; border-radius: 2px;
+      background: var(--tc, #818cf8);
+      transform-origin: bottom;
+      animation: eq 1.0s ease-in-out infinite;
+    }
+    .track-eq span:nth-child(1) { height: 5px; animation-delay: 0s; }
+    .track-eq span:nth-child(2) { height: 10px; animation-delay: 0.16s; }
+    .track-eq span:nth-child(3) { height: 7px; animation-delay: 0.3s; }
+    .track-eq span:nth-child(4) { height: 12px; animation-delay: 0.1s; }
+    @keyframes eq {
+      0%,100% { transform: scaleY(0.3); }
+      50%      { transform: scaleY(1); }
+    }
+
+    /* Album art thumbnail */
+    .track-art {
+      width: 50px; height: 50px; border-radius: 12px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+      background: var(--ta-bg, rgba(129,140,248,0.1));
+      border: 1px solid var(--ta-bd, rgba(129,140,248,0.18));
+      position: relative; overflow: hidden;
+      transition: box-shadow .35s;
+    }
+    .track.active .track-art {
+      box-shadow: 0 0 22px var(--ta-glow, rgba(129,140,248,0.5));
+    }
+    .track-art::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 60%);
+      border-radius: 12px;
+    }
+
+    .track-info { flex: 1; min-width: 0; }
+    .track-title {
+      font-size: 0.84rem; font-weight: 600;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      transition: color .22s; color: #646480;
+    }
+    .track.active .track-title { color: #dcdcf5; }
+    .track-artist { font-size: 0.69rem; color: #2e2e46; margin-top: 3px; transition: color .22s; }
+    .track.active .track-artist { color: var(--tc, #818cf8); }
+
+    .track-right { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex-shrink: 0; }
+    .live-dot-badge {
+      display: inline-flex; align-items: center; gap: 3px;
+      font-size: 0.48rem; font-weight: 800; letter-spacing: 0.8px;
+      color: #4ade80; background: rgba(74,222,128,0.1);
+      border: 1px solid rgba(74,222,128,0.22); border-radius: 5px;
+      padding: 2px 5px; text-transform: uppercase;
+    }
+    .live-dot-badge::before {
+      content: ''; width: 4px; height: 4px; border-radius: 50%;
+      background: #4ade80; animation: liveblink 1.6s ease-in-out infinite;
+    }
+    @keyframes liveblink { 0%,100%{opacity:1;} 50%{opacity:0.2;} }
+    .track-year { font-size: 0.58rem; color: #252538; }
+
+    /* ── PROJECTS CARD ── */
+    .projects-card {
+      display: block; text-decoration: none;
+      margin-top: 12px;
+      padding: 18px 18px 16px;
+      border-radius: 18px;
+      background: linear-gradient(145deg, rgba(129,140,248,0.07) 0%, rgba(99,102,241,0.04) 100%);
+      border: 1px solid rgba(129,140,248,0.14);
+      position: relative; overflow: hidden;
+      transition: transform .25s, border-color .25s, box-shadow .25s;
+      cursor: pointer;
+    }
+    .projects-card:hover {
+      transform: translateY(-3px) translateX(5px);
+      border-color: rgba(129,140,248,0.3);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 24px rgba(129,140,248,0.12);
+    }
+    .projects-card-glow {
+      position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(ellipse 80% 60% at 10% 0%, rgba(129,140,248,0.1), transparent 60%);
+    }
+    .projects-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(129,140,248,0.4), transparent);
+    }
+    .projects-card-top {
+      display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;
+    }
+    .projects-card-icon {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: rgba(129,140,248,0.12); border: 1px solid rgba(129,140,248,0.2);
+      display: flex; align-items: center; justify-content: center;
+      color: #818cf8;
+    }
+    .projects-card-arrow {
+      color: #333355;
+      transition: transform .25s, color .25s;
+    }
+    .projects-card:hover .projects-card-arrow { transform: translateX(4px); color: #818cf8; }
+    .projects-card-label {
+      font-size: 0.88rem; font-weight: 700; color: #c0c0e8; margin-bottom: 4px; position: relative; z-index: 1;
+    }
+    .projects-card-sub {
+      font-size: 0.67rem; color: #33334e; line-height: 1.5; margin-bottom: 14px; position: relative; z-index: 1;
+    }
+    .projects-card-chips {
+      display: flex; gap: 5px; flex-wrap: wrap; position: relative; z-index: 1;
+    }
+    .projects-card-chips span {
+      font-size: 0.6rem; font-weight: 600; padding: 3px 8px; border-radius: 6px;
+      background: rgba(129,140,248,0.1); border: 1px solid rgba(129,140,248,0.18);
+      color: #6668a0;
+    }
+
+    /* ══════════════════════════════════════
+       VINYL CENTER
+    ══════════════════════════════════════ */
+    .vinyl-center {
+      display: flex; flex-direction: column; align-items: center;
+      padding: 0 28px;
+      position: sticky; top: 68px;
+    }
+
+    .vinyl-player {
       position: relative;
-      padding: 56px 0 48px;
+      width: 390px; height: 390px;
+      margin: 0 auto;
+      cursor: grab;
     }
+    .vinyl-player:active { cursor: grabbing; }
+    .drag-ring-svg {
+      position: absolute; inset: -6px; width: calc(100% + 12px); height: calc(100% + 12px);
+      pointer-events: none; z-index: 6;
+      opacity: 0; transition: opacity 0.2s;
+    }
+    .drag-ring-svg.visible { opacity: 1; }
+    .drag-ring-track {
+      fill: none; stroke: rgba(255,255,255,0.06); stroke-width: 4;
+    }
+    .drag-ring-fill {
+      fill: none; stroke: #818cf8; stroke-width: 4; stroke-linecap: round;
+      transition: stroke 0.3s;
+    }
+    .drag-hint {
+      font-size: 0.6rem; color: #252538; text-align: center;
+      margin-top: 10px; letter-spacing: 0.5px;
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+    }
+    .drag-hint svg { opacity: 0.4; }
+    /* drag fill arc glow */
+    .drag-ring-fill { filter: drop-shadow(0 0 4px var(--vc-color, #818cf8)); }
 
-    /* Center vertical line */
-    .timeline-wrap::before {
+    /* Outer ambient ring */
+    .vinyl-ambient {
+      position: absolute;
+      inset: -48px;
+      border-radius: 50%;
+      background: radial-gradient(ellipse at center,
+        var(--vc-glow, rgba(129,140,248,0.16)) 0%,
+        transparent 68%);
+      transition: background 0.9s ease;
+      pointer-events: none;
+    }
+    /* Second outer glow pulse */
+    .vinyl-ambient::after {
+      content: '';
+      position: absolute; inset: 20px;
+      border-radius: 50%;
+      background: radial-gradient(ellipse at center,
+        var(--vc-glow, rgba(129,140,248,0.1)) 0%,
+        transparent 70%);
+      animation: ambientPulse 3s ease-in-out infinite;
+    }
+    @keyframes ambientPulse { 0%,100%{opacity:0.6;} 50%{opacity:1;} }
+
+    /* The disk */
+    .vinyl-disk {
+      position: absolute; inset: 0;
+      border-radius: 50%;
+      background:
+        /* Highlight shimmer */
+        radial-gradient(ellipse 60% 30% at 30% 25%, rgba(255,255,255,0.04) 0%, transparent 60%),
+        /* Groove rings */
+        repeating-radial-gradient(
+          circle at center,
+          transparent 0px,
+          transparent 5px,
+          rgba(255,255,255,0.014) 5px,
+          rgba(255,255,255,0.014) 6px
+        ),
+        /* Base */
+        radial-gradient(circle at center, #1c1c26 0%, #101018 45%, #08080e 100%);
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.07),
+        0 0 0 2px rgba(0,0,0,0.6),
+        0 40px 100px rgba(0,0,0,0.85),
+        inset 0 0 60px rgba(0,0,0,0.4);
+      animation: spin 10s linear infinite;
+      will-change: transform;
+    }
+    .vinyl-disk.fast { animation: spin 2.2s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Reflection strip across disk */
+    .vinyl-disk::before {
       content: '';
       position: absolute;
-      left: 50%; top: 0; bottom: 0;
-      width: 1px;
-      background: linear-gradient(to bottom,
-        transparent 0%,
-        rgba(14,165,233,0.35) 10%,
-        rgba(129,140,248,0.3) 30%,
-        rgba(244,114,182,0.28) 60%,
-        rgba(251,191,36,0.22) 85%,
-        transparent 100%
-      );
+      top: 8%; left: 15%; right: 35%; bottom: 55%;
+      background: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    /* Center label */
+    .vinyl-label {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 118px; height: 118px;
+      border-radius: 50%;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px;
+      background: var(--vl-bg, linear-gradient(145deg, #1e1b4b, #2e2b5f));
+      border: 2.5px solid var(--vl-bd, rgba(129,140,248,0.4));
+      box-shadow:
+        0 0 0 4px rgba(0,0,0,0.45),
+        0 0 30px var(--vl-glow, rgba(129,140,248,0.4)),
+        inset 0 1px 0 rgba(255,255,255,0.1);
+      transition: background 0.5s, border-color 0.5s, box-shadow 0.5s;
+      z-index: 2;
+      animation: counterSpin 10s linear infinite;
+    }
+    .vinyl-disk.fast .vinyl-label { animation: counterSpin 2.2s linear infinite; }
+    @keyframes counterSpin { to { transform: translate(-50%,-50%) rotate(-360deg); } }
+    .vinyl-label-emoji { font-size: 1.9rem; line-height: 1; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.5)); }
+    .vinyl-label-name {
+      font-size: 0.48rem; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase;
+      color: rgba(255,255,255,0.5); max-width: 72px; text-align: center; line-height: 1.3;
+    }
+    .vinyl-label-line {
+      width: 24px; height: 1px; background: rgba(255,255,255,0.15); margin: 1px 0;
+    }
+
+    /* Spindle */
+    .vinyl-spindle {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      width: 9px; height: 9px; border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #555, #111);
+      border: 1px solid rgba(255,255,255,0.15);
+      z-index: 3;
+    }
+
+    /* ── TONEARM ── */
+    .tonearm-wrap {
+      position: absolute;
+      top: -18px; right: -22px;
+      width: 140px; height: 220px;
+      z-index: 10;
+      transform-origin: 22px 22px;
+      transition: transform 0.9s cubic-bezier(0.34,1.3,0.64,1);
+    }
+    .tonearm-wrap.lifted  { transform: rotate(-30deg); }
+    .tonearm-wrap.dropped { transform: rotate(3deg); }
+
+    .tonearm-base {
+      position: absolute; top: 0; right: 0;
+      width: 44px; height: 44px; border-radius: 50%;
+      background: radial-gradient(circle at 38% 33%, #5a5a6e, #1a1a24);
+      border: 2px solid rgba(255,255,255,0.1);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.07);
+    }
+    .tonearm-base::after {
+      content: '';
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      width: 10px; height: 10px; border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #888, #333);
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+
+    .tonearm-shaft {
+      position: absolute;
+      top: 20px; right: 20px;
+      width: 7px; height: 175px;
+      background: linear-gradient(180deg,
+        #6a6a7e 0%,
+        #4a4a5e 30%,
+        #3a3a4a 70%,
+        #2c2c38 100%);
+      border-radius: 4px;
+      transform-origin: top center;
+      transform: rotate(14deg);
+      box-shadow: -2px 0 6px rgba(0,0,0,0.5), 2px 0 2px rgba(255,255,255,0.04);
+    }
+    /* Slight bend at bottom */
+    .tonearm-shaft::after {
+      content: '';
+      position: absolute;
+      bottom: -12px; left: -2px;
+      width: 11px; height: 16px;
+      background: linear-gradient(150deg, #3a3a4a, #252530);
+      border-radius: 3px;
+      transform: rotate(-6deg);
+    }
+
+    .tonearm-head {
+      position: absolute;
+      bottom: 4px; left: 50%;
+      transform: translateX(-60%) rotate(-14deg);
+      width: 18px; height: 12px;
+      background: linear-gradient(135deg, var(--vc-color, #818cf8), #5558e8);
+      border-radius: 4px;
+      box-shadow: 0 0 12px var(--vc-glow, rgba(129,140,248,0.6)),
+                  0 2px 6px rgba(0,0,0,0.4);
+      transition: background 0.5s, box-shadow 0.5s;
+    }
+    .tonearm-needle {
+      position: absolute;
+      bottom: -7px; left: 48%;
       transform: translateX(-50%);
-      z-index: 0;
+      width: 1.5px; height: 8px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.15));
+      border-radius: 1px;
     }
 
-    /* ── TIMELINE ITEM ── */
-    .tl-item {
-      display: grid;
-      grid-template-columns: 1fr 56px 1fr;
-      align-items: start;
-      margin-bottom: 52px;
-      position: relative;
+    /* ── NOW PLAYING BAR ── */
+    .now-playing {
+      width: 100%; max-width: 390px;
+      margin-top: 22px;
     }
+    .np-info {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .np-text {}
+    .np-role {
+      font-size: 0.9rem; font-weight: 700; color: #d8d8f0; line-height: 1.2;
+    }
+    .np-company {
+      font-size: 0.7rem; font-weight: 600;
+      color: var(--vc-color, #818cf8); margin-top: 2px;
+      transition: color 0.5s;
+    }
+    .np-when { font-size: 0.61rem; color: #2e2e46; margin-top: 1px; }
 
-    /* Date labels */
-    .tl-date {
-      font-size: 0.66rem; font-weight: 700;
-      color: #3d3d55; letter-spacing: 0.3px;
-      padding-top: 32px; white-space: nowrap;
+    /* Waveform visualizer */
+    .waveform {
+      display: flex; align-items: flex-end; gap: 2px; height: 28px;
     }
-    .tl-item.left  .tl-date { text-align: left;  padding-left: 10px; }
-    .tl-item.right .tl-date { text-align: right; padding-right: 10px; }
+    .wave-bar {
+      width: 3px; border-radius: 2px;
+      background: var(--vc-color, #818cf8);
+      opacity: 0.35;
+      animation: waveBounce 1.2s ease-in-out infinite;
+      transition: background 0.5s;
+    }
+    .wave-bar:nth-child(1)  { height: 6px;  animation-delay: 0s; }
+    .wave-bar:nth-child(2)  { height: 12px; animation-delay: 0.08s; }
+    .wave-bar:nth-child(3)  { height: 18px; animation-delay: 0.16s; }
+    .wave-bar:nth-child(4)  { height: 24px; animation-delay: 0.24s; }
+    .wave-bar:nth-child(5)  { height: 14px; animation-delay: 0.32s; }
+    .wave-bar:nth-child(6)  { height: 20px; animation-delay: 0.14s; }
+    .wave-bar:nth-child(7)  { height: 10px; animation-delay: 0.06s; }
+    .wave-bar:nth-child(8)  { height: 22px; animation-delay: 0.28s; }
+    .wave-bar:nth-child(9)  { height: 16px; animation-delay: 0.2s; }
+    .wave-bar:nth-child(10) { height: 8px;  animation-delay: 0.36s; }
+    @keyframes waveBounce { 0%,100%{transform:scaleY(0.35);} 50%{transform:scaleY(1);} }
 
-    /* Card placement */
-    .tl-item.left  .exp-card { grid-column: 1; grid-row: 1; }
-    .tl-item.left  .tl-dot-col { grid-column: 2; grid-row: 1; }
-    .tl-item.left  .tl-date    { grid-column: 3; grid-row: 1; }
+    /* Progress track */
+    .progress-track {
+      width: 100%; height: 4px;
+      background: rgba(255,255,255,0.06); border-radius: 4px;
+      margin: 14px 0 16px; cursor: pointer; position: relative;
+    }
+    .progress-fill {
+      height: 100%; border-radius: 4px;
+      background: var(--vc-color, #818cf8);
+      transition: background 0.5s;
+      width: 0%; position: relative;
+    }
+    .progress-fill::after {
+      content: '';
+      position: absolute; right: -4px; top: 50%;
+      transform: translateY(-50%);
+      width: 10px; height: 10px; border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 0 6px var(--vc-color, #818cf8);
+      opacity: 0; transition: opacity 0.2s;
+    }
+    .progress-track:hover .progress-fill::after { opacity: 1; }
 
-    .tl-item.right .tl-date    { grid-column: 1; grid-row: 1; }
-    .tl-item.right .tl-dot-col { grid-column: 2; grid-row: 1; }
-    .tl-item.right .exp-card   { grid-column: 3; grid-row: 1; }
-
-    /* Dot column */
-    .tl-dot-col {
-      display: flex; flex-direction: column; align-items: center;
-      padding-top: 30px; position: relative; z-index: 2;
+    /* Controls */
+    .controls {
+      display: flex; align-items: center; gap: 8px;
     }
-    .tl-dot {
-      width: 14px; height: 14px; border-radius: 50%;
-      background: var(--dot-color, #818cf8);
-      border: 3px solid #07070c;
-      box-shadow: 0 0 0 3px color-mix(in srgb, var(--dot-color, #818cf8) 18%, transparent),
-                  0 0 18px color-mix(in srgb, var(--dot-color, #818cf8) 45%, transparent);
-      flex-shrink: 0;
-    }
-    .tl-dot.live { animation: pulseDot 2.2s ease-in-out infinite; }
-    @keyframes pulseDot {
-      0%,100% { box-shadow: 0 0 0 3px color-mix(in srgb, var(--dot-color, #818cf8) 18%, transparent), 0 0 18px color-mix(in srgb, var(--dot-color, #818cf8) 45%, transparent); }
-      50%      { box-shadow: 0 0 0 7px color-mix(in srgb, var(--dot-color, #818cf8) 10%, transparent), 0 0 30px color-mix(in srgb, var(--dot-color, #818cf8) 55%, transparent); }
-    }
-
-    /* ── EXPERIENCE CARD ── */
-    .exp-card {
-      background: linear-gradient(145deg, #111118 0%, #0e0e14 100%);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-top: 2px solid var(--card-accent, rgba(129,140,248,0.4));
-      border-radius: 16px;
-      padding: 20px 20px 0;
-      overflow: hidden;
-      transition: border-color .3s, box-shadow .3s, transform .3s;
-      position: relative;
-    }
-    .exp-card::before {
-      content: ''; position: absolute; inset: 0; border-radius: 16px; pointer-events: none;
-      background: radial-gradient(ellipse 90% 60% at 50% -5%, var(--card-glow, rgba(129,140,248,0.06)), transparent 70%);
-      z-index: 0; transition: opacity .3s;
-    }
-    .exp-card > * { position: relative; z-index: 1; }
-    .exp-card:hover {
-      border-color: var(--card-accent, rgba(129,140,248,0.5));
-      box-shadow: 0 20px 50px rgba(0,0,0,0.6), 0 0 28px var(--card-glow, rgba(129,140,248,0.08));
-      transform: translateY(-3px);
-    }
-
-    /* Card header */
-    .exp-card-top {
-      display: flex; align-items: center; gap: 13px;
-      padding-bottom: 12px;
-    }
-    .exp-ico {
-      width: 46px; height: 46px; border-radius: 12px; flex-shrink: 0;
+    .ctrl {
+      background: none; border: none; cursor: pointer; color: #2e2e46;
+      width: 34px; height: 34px; border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
-      font-size: 1.35rem;
-      background: var(--icon-bg, rgba(129,140,248,0.1));
-      border: 1px solid var(--icon-border, rgba(129,140,248,0.22));
-      box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+      transition: color .2s, background .2s;
     }
-    .exp-meta { flex: 1; min-width: 0; }
-    .exp-role {
-      font-size: 0.97rem; font-weight: 700; color: #ebebf8; line-height: 1.2;
-      margin-bottom: 3px;
+    .ctrl:hover { color: #7070a0; background: rgba(255,255,255,0.05); }
+    .ctrl.main {
+      width: 48px; height: 48px;
+      background: var(--vc-color, #818cf8);
+      color: #fff;
+      box-shadow: 0 6px 20px var(--vc-glow, rgba(129,140,248,0.45));
+      transition: background 0.5s, box-shadow 0.5s, transform .15s;
     }
-    .exp-company {
-      font-size: 0.78rem; font-weight: 600;
-      color: var(--card-accent, #a5b4fc);
-      margin-bottom: 5px;
+    .ctrl.main:hover { transform: scale(1.06); }
+    .volume-wrap {
+      display: flex; align-items: center; gap: 7px; margin-left: auto;
     }
-    .exp-when {
-      font-size: 0.67rem; color: #44445a; font-weight: 500;
-      display: flex; align-items: center; gap: 7px; flex-wrap: wrap;
+    .vol-icon { color: #252535; }
+    .vol-bar {
+      width: 64px; height: 3px; background: rgba(255,255,255,0.06);
+      border-radius: 3px; position: relative; overflow: hidden;
+    }
+    .vol-fill {
+      height: 100%; width: 65%; border-radius: 3px;
+      background: rgba(255,255,255,0.15);
+    }
+
+    /* ══════════════════════════════════════
+       DETAIL PANEL
+    ══════════════════════════════════════ */
+    .detail-panel {
+      border-left: 1px solid rgba(255,255,255,0.04);
+      padding-left: 28px;
+      position: sticky; top: 68px;
+      max-height: calc(100vh - 80px);
+      overflow-y: auto;
+    }
+    .detail-panel::-webkit-scrollbar { width: 3px; }
+
+    .detail-inner {
+      opacity: 0; transform: translateX(10px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    .detail-inner.show { opacity: 1; transform: translateX(0); }
+
+    /* Company badge */
+    .detail-badge {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 8px 14px 8px 10px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 12px;
+      margin-bottom: 20px;
+      transition: border-color .3s;
+    }
+    .detail-badge:hover { border-color: rgba(255,255,255,0.12); }
+    .detail-badge-icon {
+      width: 32px; height: 32px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      background: var(--dc-bg, rgba(129,140,248,0.12));
+      border: 1px solid var(--dc-bd, rgba(129,140,248,0.2));
+    }
+    .detail-badge-text {}
+    .detail-badge-company { font-size: 0.78rem; font-weight: 700; color: #c0c0e0; }
+    .detail-badge-track { font-size: 0.58rem; color: var(--dc-color, #818cf8); font-weight: 600; letter-spacing: 0.5px; transition: color 0.4s; }
+
+    .detail-role {
+      font-size: 1.5rem; font-weight: 800; color: #eeeeff; line-height: 1.1;
+      margin-bottom: 8px; letter-spacing: -0.8px;
+    }
+    .detail-when {
+      font-size: 0.67rem; color: #303050; margin-bottom: 22px;
+      display: flex; align-items: center; gap: 8px;
     }
     .live-badge {
       display: inline-flex; align-items: center; gap: 4px;
-      font-size: 0.55rem; font-weight: 800; letter-spacing: 1px;
+      font-size: 0.5rem; font-weight: 800; letter-spacing: 1px;
       color: #4ade80; background: rgba(74,222,128,0.1);
-      border: 1px solid rgba(74,222,128,0.28); border-radius: 6px;
-      padding: 2px 7px; text-transform: uppercase;
+      border: 1px solid rgba(74,222,128,0.25); border-radius: 5px;
+      padding: 2px 6px; text-transform: uppercase;
     }
     .live-badge::before {
       content: ''; width: 5px; height: 5px; border-radius: 50%;
-      background: #4ade80; animation: liveblink 1.5s ease-in-out infinite;
-    }
-    @keyframes liveblink { 0%,100% { opacity:1; } 50% { opacity:0.25; } }
-    .exp-divider {
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.07), transparent);
-      margin-bottom: 16px;
-    }
-    .exp-bullets {
-      list-style: none; display: flex; flex-direction: column; gap: 9px;
-      margin-bottom: 18px;
-    }
-    .exp-bullets li {
-      font-size: 0.78rem; color: #7878a0; line-height: 1.65;
-      display: flex; gap: 10px; align-items: flex-start;
-    }
-    .exp-bullets li::before {
-      content: '▸';
-      color: var(--card-accent, #818cf8);
-      font-size: 0.62rem; flex-shrink: 0; margin-top: 3px;
-    }
-    .exp-tech {
-      display: flex; flex-wrap: wrap; gap: 5px;
-      padding: 14px 0 18px;
-      border-top: 1px solid rgba(255,255,255,0.05);
-    }
-    .exp-pill {
-      font-size: 0.62rem; font-weight: 500; padding: 3px 9px; border-radius: 6px;
-      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
-      color: #8888b0;
+      background: #4ade80; animation: liveblink 1.6s ease-in-out infinite;
     }
 
-    /* ── SCROLL TO TOP ── */
+    /* Section divider */
+    .detail-section-label {
+      font-size: 0.58rem; font-weight: 700; letter-spacing: 2.2px; text-transform: uppercase;
+      color: #2e2e4a; margin-bottom: 14px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .detail-section-label::after { content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.05); }
+
+    .detail-bullets {
+      list-style: none; display: flex; flex-direction: column; gap: 11px; margin-bottom: 24px;
+    }
+    .detail-bullets li {
+      font-size: 0.8rem; color: #62628a; line-height: 1.8;
+      display: flex; gap: 10px; align-items: flex-start;
+    }
+    .detail-bullets li::before {
+      content: '▸';
+      color: var(--dc-color, #818cf8);
+      font-size: 0.58rem; flex-shrink: 0; margin-top: 5px;
+      transition: color 0.4s;
+    }
+
+    .detail-pills { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 24px; }
+    .detail-pill {
+      font-size: 0.63rem; font-weight: 500; padding: 5px 11px; border-radius: 8px;
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+      color: #686890; transition: all .2s; cursor: default;
+    }
+    .detail-pill:hover {
+      background: rgba(255,255,255,0.07); color: #9090b8;
+      border-color: rgba(255,255,255,0.13);
+      transform: translateY(-1px);
+    }
+
+    /* ── SCROLL TOP ── */
     #scroll-top {
-      position: fixed; bottom: 32px; right: 32px;
-      width: 44px; height: 44px; border-radius: 12px;
-      background: rgba(129,140,248,0.15); border: 1px solid rgba(129,140,248,0.3);
-      color: #a5b4fc; cursor: pointer; font-size: 1.1rem;
+      position: fixed; bottom: 28px; right: 28px;
+      width: 38px; height: 38px; border-radius: 10px;
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+      color: #6060808; color: #606080; cursor: pointer;
       display: flex; align-items: center; justify-content: center;
       opacity: 0; pointer-events: none;
       transition: all .3s; z-index: 150;
       backdrop-filter: blur(12px);
     }
     #scroll-top.show { opacity: 1; pointer-events: all; }
-    #scroll-top:hover { background: rgba(129,140,248,0.25); transform: translateY(-2px); }
+    #scroll-top:hover { background: rgba(255,255,255,0.08); transform: translateY(-2px); }
 
     /* ── FOOTER ── */
     .page-footer {
-      text-align: center; padding: 36px 0 24px;
-      border-top: 1px solid rgba(255,255,255,0.035);
-      margin-top: 40px;
+      position: relative; z-index: 1;
+      text-align: center; padding: 24px 0 18px;
+      border-top: 1px solid rgba(255,255,255,0.03);
     }
-    .footer-links { display: flex; justify-content: center; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+    .footer-links { display: flex; justify-content: center; gap: 4px; flex-wrap: wrap; margin-bottom: 10px; }
     .footer-links a {
-      color: #2a2a3e; font-size: 0.72rem; font-weight: 500; text-decoration: none;
-      display: inline-flex; align-items: center; gap: 5px;
-      padding: 5px 12px; border-radius: 8px; border: 1px solid transparent;
+      color: #22223a; font-size: 0.69rem; text-decoration: none;
+      padding: 5px 12px; border-radius: 8px;
       transition: all .2s;
     }
-    .footer-links a:hover { color: #9090b0; background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.06); }
-    .page-footer p { color: #1a1a2e; font-size: 0.66rem; letter-spacing: 0.5px; }
+    .footer-links a:hover { color: #8888b0; background: rgba(255,255,255,0.03); }
+    .page-footer p { color: #181828; font-size: 0.62rem; }
 
     /* ── RESPONSIVE ── */
-    @media (max-width: 680px) {
-      .tl-item {
-        grid-template-columns: 1fr !important;
-        gap: 0;
-      }
-      .tl-item.left  .exp-card,
-      .tl-item.right .exp-card  { grid-column: 1; grid-row: 2; }
-      .tl-item.left  .tl-dot-col,
-      .tl-item.right .tl-dot-col { display: none; }
-      .tl-item.left  .tl-date,
-      .tl-item.right .tl-date {
-        grid-column: 1; grid-row: 1;
-        text-align: left !important; padding: 0 0 10px 0 !important;
-        font-size: 0.64rem;
-      }
-      .timeline-wrap::before { left: 10px; }
-      .page { padding: 82px 16px 48px; }
+    @media (max-width: 1000px) {
+      .stage { grid-template-columns: 260px 1fr 320px; padding: 12px 20px 48px; }
+    }
+    @media (max-width: 820px) {
+      .stage { grid-template-columns: 1fr; }
+      .tracklist, .detail-panel { position: static; border-left: none; padding-left: 0; max-height: none; }
+      .vinyl-center { padding: 20px 0; margin: 0 auto; }
+      .detail-panel { padding-top: 20px; }
+    }
+    @media (max-width: 640px) {
       nav { padding: 0 18px; }
       .nav-links { display: none; }
+      .vinyl-player { width: 300px; height: 300px; }
+      .vinyl-label { width: 90px; height: 90px; }
     }
-
-    /* ── ENTRANCE ANIMATIONS ── */
-    .sr { opacity:0; transform:translateY(22px); transition: opacity 0.55s cubic-bezier(0.22,1,0.36,1), transform 0.55s cubic-bezier(0.22,1,0.36,1); }
-    .sr.in { opacity:1; transform:none; }
   </style>
 </head>
 <body>
 
-<div id="progress-bar"></div>
+<div class="ambient-bg" id="ambientBg"></div>
 
-<!-- NAV -->
 <nav>
   <a href="index.html" class="nav-logo">Aashna Parikh</a>
   <ul class="nav-links">
@@ -391,268 +731,571 @@
   <a href="mailto:aashnajigneshbhaip@uvic.ca" class="nav-cta">Contact Me</a>
 </nav>
 
-<button id="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+<button id="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
 </button>
 
 <div class="page">
-
-  <!-- HEADER -->
-  <div class="page-header sr">
+  <div class="page-header">
     <div class="page-eyebrow">
-      <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
       Professional Journey
     </div>
     <h1 class="page-title">Experience</h1>
-    <p class="page-sub">Building real systems at the intersection of software, hardware, research, and healthcare.</p>
-    <div class="exp-stats">
-      <div class="estat"><div class="estat-n">5</div><div class="estat-l">Roles</div></div>
-      <div class="estat"><div class="estat-n">3</div><div class="estat-l">Current</div></div>
-      <div class="estat"><div class="estat-n">3+</div><div class="estat-l">Industries</div></div>
-      <div class="estat"><div class="estat-n">UVic</div><div class="estat-l">Based</div></div>
-    </div>
+    <p class="page-sub">From utility infrastructure to marine ML research — building things that actually ship.</p>
   </div>
 
-  <!-- POPULAR SKILLS -->
-  <div class="pop-skills sr">
-    <div class="pop-skills-top">
-      <span class="pop-skills-title">Popular Skills</span>
-      <a href="skills.html" class="pop-skills-link">View all skills
-        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+  <div class="stage">
+
+    <!-- ── TRACKLIST ── -->
+    <div class="tracklist">
+      <div class="tl-header">
+        <span class="tl-header-label">Tracklist</span>
+        <span class="tl-header-count">5 tracks</span>
+      </div>
+
+      <div class="track active" data-idx="0"
+        style="--tc:#0ea5e9; --ta-bg:rgba(14,165,233,0.1); --ta-bd:rgba(14,165,233,0.2); --ta-glow:rgba(14,165,233,0.45);">
+        <div class="track-num-wrap">
+          <span class="track-num">01</span>
+          <div class="track-eq"><span></span><span></span><span></span><span></span></div>
+        </div>
+        <div class="track-art">⚡</div>
+        <div class="track-info">
+          <div class="track-title">Software Engineering Lead</div>
+          <div class="track-artist">FortisBC</div>
+        </div>
+        <div class="track-right"><span class="live-dot-badge">LIVE</span></div>
+      </div>
+
+      <div class="track" data-idx="1"
+        style="--tc:#10b981; --ta-bg:rgba(16,185,129,0.1); --ta-bd:rgba(16,185,129,0.2); --ta-glow:rgba(16,185,129,0.45);">
+        <div class="track-num-wrap">
+          <span class="track-num">02</span>
+          <div class="track-eq"><span></span><span></span><span></span><span></span></div>
+        </div>
+        <div class="track-art">🎓</div>
+        <div class="track-info">
+          <div class="track-title">Undergrad Research Assistant</div>
+          <div class="track-artist">ECS Faculty – UVic</div>
+        </div>
+        <div class="track-right"><span class="live-dot-badge">LIVE</span></div>
+      </div>
+
+      <div class="track" data-idx="2"
+        style="--tc:#818cf8; --ta-bg:rgba(129,140,248,0.1); --ta-bd:rgba(129,140,248,0.2); --ta-glow:rgba(129,140,248,0.45);">
+        <div class="track-num-wrap">
+          <span class="track-num">03</span>
+          <div class="track-eq"><span></span><span></span><span></span><span></span></div>
+        </div>
+        <div class="track-art">🔬</div>
+        <div class="track-info">
+          <div class="track-title">Undergrad Research Assistant</div>
+          <div class="track-artist">SOLIDS Lab – UVic</div>
+        </div>
+        <div class="track-right"><span class="live-dot-badge">LIVE</span></div>
+      </div>
+
+      <div class="track" data-idx="3"
+        style="--tc:#f472b6; --ta-bg:rgba(244,114,182,0.1); --ta-bd:rgba(244,114,182,0.2); --ta-glow:rgba(244,114,182,0.45);">
+        <div class="track-num-wrap">
+          <span class="track-num">04</span>
+          <div class="track-eq"><span></span><span></span><span></span><span></span></div>
+        </div>
+        <div class="track-art">🏥</div>
+        <div class="track-info">
+          <div class="track-title">Technical Lead</div>
+          <div class="track-artist">Fraser Health Authority</div>
+        </div>
+        <div class="track-right"><span class="track-year">2025</span></div>
+      </div>
+
+      <div class="track" data-idx="4"
+        style="--tc:#fbbf24; --ta-bg:rgba(251,191,36,0.1); --ta-bd:rgba(251,191,36,0.2); --ta-glow:rgba(251,191,36,0.45);">
+        <div class="track-num-wrap">
+          <span class="track-num">05</span>
+          <div class="track-eq"><span></span><span></span><span></span><span></span></div>
+        </div>
+        <div class="track-art">🏛️</div>
+        <div class="track-info">
+          <div class="track-title">Software Assistant</div>
+          <div class="track-artist">UVic McPherson Library</div>
+        </div>
+        <div class="track-right"><span class="track-year">2025</span></div>
+      </div>
+
+      <!-- Projects card -->
+      <a href="projects.html" class="projects-card">
+        <div class="projects-card-glow"></div>
+        <div class="projects-card-top">
+          <div class="projects-card-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></svg>
+          </div>
+          <div class="projects-card-arrow">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+        </div>
+        <div class="projects-card-label">View Relevant Projects</div>
+        <div class="projects-card-sub">See the work built across these roles</div>
+        <div class="projects-card-chips">
+          <span>ML Pipelines</span>
+          <span>Full-Stack</span>
+          <span>Research</span>
+        </div>
       </a>
     </div>
-    <div class="pop-skills-rows">
-      <div class="pop-skills-row">
-        <span class="pop-row-label">Languages</span>
-        <span class="pop-chip lang"><img src="https://skillicons.dev/icons?i=python" alt="">Python</span>
-        <span class="pop-chip lang"><img src="https://skillicons.dev/icons?i=cpp" alt="">C++</span>
-        <span class="pop-chip lang"><img src="https://skillicons.dev/icons?i=js" alt="">JavaScript</span>
-        <span class="pop-chip lang"><img src="https://skillicons.dev/icons?i=java" alt="">Java</span>
-        <span class="pop-chip lang"><img src="https://skillicons.dev/icons?i=r" alt="">R</span>
-      </div>
-      <div class="pop-skills-row">
-        <span class="pop-row-label">Frameworks</span>
-        <span class="pop-chip frame"><img src="https://skillicons.dev/icons?i=react" alt="">React</span>
-        <span class="pop-chip frame"><img src="https://skillicons.dev/icons?i=fastapi" alt="">FastAPI</span>
-        <span class="pop-chip frame"><img src="https://skillicons.dev/icons?i=redux" alt="">Redux</span>
-        <span class="pop-chip frame"><img src="https://skillicons.dev/icons?i=git" alt="">Git</span>
-        <span class="pop-chip frame">🧪 scikit-learn</span>
-        <span class="pop-chip frame">🐼 pandas</span>
-      </div>
-      <div class="pop-skills-row">
-        <span class="pop-row-label">Domain</span>
-        <span class="pop-chip domain">⚙️ PLC Programming</span>
-        <span class="pop-chip domain">🤖 Machine Learning</span>
-        <span class="pop-chip domain">⏱️ Real-Time Systems</span>
-        <span class="pop-chip domain">🖥️ CAD Design</span>
-        <span class="pop-chip domain">🔒 Cybersecurity</span>
-      </div>
-    </div>
-  </div>
 
-  <!-- TIMELINE -->
-  <div class="timeline-wrap">
+    <!-- ── VINYL ── -->
+    <div class="vinyl-center">
+      <div class="vinyl-player">
+        <div class="vinyl-ambient" id="vinylAmbient"></div>
 
-    <!-- 1 · FortisBC — LEFT card, RIGHT date -->
-    <div class="tl-item left sr">
-      <div class="exp-card" style="--card-accent:#0ea5e9; --card-glow:rgba(14,165,233,0.08); --icon-bg:rgba(14,165,233,0.1); --icon-border:rgba(14,165,233,0.25);">
-        <div class="exp-card-top">
-          <div class="exp-ico">⚡</div>
-          <div class="exp-meta">
-            <div class="exp-role">Software Engineering Lead</div>
-            <div class="exp-company">FortisBC</div>
-            <div class="exp-when">January 2026 – Present <span class="live-badge">LIVE</span></div>
+        <div class="vinyl-disk" id="vinylDisk">
+          <div class="vinyl-label" id="vinylLabel">
+            <div class="vinyl-label-emoji" id="vinylEmoji">⚡</div>
+            <div class="vinyl-label-line"></div>
+            <div class="vinyl-label-name" id="vinylName">FortisBC</div>
+          </div>
+          <div class="vinyl-spindle"></div>
+        </div>
+
+        <!-- Drag progress ring -->
+        <svg class="drag-ring-svg" id="dragRingSvg" viewBox="0 0 402 402">
+          <circle class="drag-ring-track" cx="201" cy="201" r="196"/>
+          <circle class="drag-ring-fill" id="dragRingFill" cx="201" cy="201" r="196"
+            stroke-dasharray="1232" stroke-dashoffset="1232"
+            transform="rotate(-90 201 201)"/>
+        </svg>
+        <div class="tonearm-wrap dropped" id="tonearm">
+          <div class="tonearm-base"></div>
+          <div class="tonearm-shaft">
+            <div class="tonearm-head" id="tonearmHead">
+              <div class="tonearm-needle"></div>
+            </div>
           </div>
         </div>
-        <div class="exp-divider"></div>
-        <ul class="exp-bullets">
-          <li>Built 15+ PLC control modules — PID loops, fault detection, and pressure regulation — maintaining ±2% stability across 50+ sensor and I/O channels for renewable natural gas infrastructure.</li>
-          <li>Developed and maintained 1,000+ lines of production control software with real-time telemetry, structured documentation, and Git-based version control.</li>
-          <li>Led end-to-end integration, testing, and commissioning — resolving 10+ control-system faults to achieve stable, safety-critical 24/7 industrial deployment.</li>
-        </ul>
-        <div class="exp-tech">
-          <span class="exp-pill">PLC Programming</span><span class="exp-pill">Real-Time Systems</span><span class="exp-pill">PID Control</span>
-          <span class="exp-pill">Industrial Automation</span><span class="exp-pill">Fault Detection</span><span class="exp-pill">Telemetry</span>
-          <span class="exp-pill">Control Algorithms</span><span class="exp-pill">Systems Integration</span><span class="exp-pill">Git</span>
-        </div>
       </div>
-      <div class="tl-dot-col">
-        <div class="tl-dot live" style="--dot-color:#0ea5e9;"></div>
-      </div>
-      <div class="tl-date">Jan 2026 – Present</div>
-    </div>
 
-    <!-- 2 · ECS Faculty — RIGHT card, LEFT date -->
-    <div class="tl-item right sr">
-      <div class="tl-date">Jan 2026 – Present</div>
-      <div class="tl-dot-col">
-        <div class="tl-dot live" style="--dot-color:#10b981;"></div>
+      <div class="drag-hint">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/></svg>
+        rotate the vinyl to switch tracks
       </div>
-      <div class="exp-card" style="--card-accent:#10b981; --card-glow:rgba(16,185,129,0.08); --icon-bg:rgba(16,185,129,0.1); --icon-border:rgba(16,185,129,0.25);">
-        <div class="exp-card-top">
-          <div class="exp-ico">🎓</div>
-          <div class="exp-meta">
-            <div class="exp-role">Undergraduate Research Assistant</div>
-            <div class="exp-company">Engineering &amp; Computer Science Faculty – UVic</div>
-            <div class="exp-when">January 2026 – Present <span class="live-badge">LIVE</span></div>
+
+      <!-- Now playing -->
+      <div class="now-playing">
+        <div class="np-info">
+          <div class="np-text">
+            <div class="np-role" id="npRole">Software Engineering Lead</div>
+            <div class="np-company" id="npCompany">FortisBC</div>
+            <div class="np-when" id="npWhen">January 2026 – Present</div>
+          </div>
+          <div class="waveform" id="waveform">
+            <div class="wave-bar"></div><div class="wave-bar"></div>
+            <div class="wave-bar"></div><div class="wave-bar"></div>
+            <div class="wave-bar"></div><div class="wave-bar"></div>
+            <div class="wave-bar"></div><div class="wave-bar"></div>
+            <div class="wave-bar"></div><div class="wave-bar"></div>
           </div>
         </div>
-        <div class="exp-divider"></div>
-        <ul class="exp-bullets">
-          <li>Conduct research alongside ECS faculty at UVic — developing software tools, data pipelines, and applying CS fundamentals across the full research lifecycle from problem formulation through implementation and academic publication.</li>
-          <li>Collaborated directly with ECS faculty on active research initiatives, translating open academic problems into working software prototypes and experimental systems.</li>
-          <li>Developed and maintained research tooling, automation scripts, and data processing pipelines in Python to accelerate experiment cycles and ensure reproducible results.</li>
-          <li>Applied core CS fundamentals — algorithms, data structures, systems design — to assist in formulating experiment methodology, validating models, and interpreting quantitative outcomes.</li>
-          <li>Contributed to technical documentation, internal research reports, and supported preparation of materials for academic publication and faculty presentations.</li>
-        </ul>
-        <div class="exp-tech">
-          <span class="exp-pill">Python</span><span class="exp-pill">NumPy</span><span class="exp-pill">Data Analysis</span>
-          <span class="exp-pill">Algorithm Design</span><span class="exp-pill">Research Methods</span><span class="exp-pill">Automation Scripts</span>
-          <span class="exp-pill">Software Engineering</span><span class="exp-pill">Academic Writing</span><span class="exp-pill">Git</span>
-        </div>
-      </div>
-    </div>
 
-    <!-- 3 · SOLIDS Lab — LEFT card, RIGHT date -->
-    <div class="tl-item left sr">
-      <div class="exp-card" style="--card-accent:#818cf8; --card-glow:rgba(129,140,248,0.08); --icon-bg:rgba(129,140,248,0.1); --icon-border:rgba(129,140,248,0.25);">
-        <div class="exp-card-top">
-          <div class="exp-ico">🔬</div>
-          <div class="exp-meta">
-            <div class="exp-role">Undergraduate Research Assistant</div>
-            <div class="exp-company">SOLIDS Lab – UVic</div>
-            <div class="exp-when">January 2026 – Present <span class="live-badge">LIVE</span></div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <div class="controls">
+          <button class="ctrl" id="prevBtn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19 20L9 12l10-8v16z"/><rect x="5" y="4" width="2" height="16" rx="1"/></svg>
+          </button>
+          <button class="ctrl main" id="playBtn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16" rx="2"/><rect x="14" y="4" width="4" height="16" rx="2"/></svg>
+          </button>
+          <button class="ctrl" id="nextBtn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M5 4l10 8-10 8V4z"/><rect x="17" y="4" width="2" height="16" rx="1"/></svg>
+          </button>
+          <div class="volume-wrap">
+            <svg class="vol-icon" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M11 5L6 9H2v6h4l5 4V5zM19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+            <div class="vol-bar"><div class="vol-fill"></div></div>
           </div>
         </div>
-        <div class="exp-divider"></div>
-        <ul class="exp-bullets">
-          <li>Build Python-based ML pipelines and predictive models for distributed marine sensor networks at UVic's SOLIDS Lab — processing 10,000+ multi-sensor data points to detect ecosystem stressors and anomalies in underwater sensing arrays.</li>
-          <li>Engineered Python-based ML pipelines ingesting and processing 10k+ multi-sensor environmental data points from distributed underwater sensor arrays, enabling automated detection of marine ecosystem stressors.</li>
-          <li>Built time-series forecasting and predictive models (scikit-learn, pandas) for continuous analysis of sensor drift, anomaly detection, and environmental trend identification across distributed network nodes.</li>
-          <li>Conducted end-to-end cybersecurity threat modeling for marine sensing infrastructure — mapping attack surfaces, analyzing communication protocols, and prototyping secure data-relay components.</li>
-          <li>Developed interactive data visualization dashboards for real-time sensor analytics; work contributed to an upcoming peer-reviewed publication on secure distributed environmental monitoring.</li>
-        </ul>
-        <div class="exp-tech">
-          <span class="exp-pill">Python</span><span class="exp-pill">scikit-learn</span><span class="exp-pill">pandas</span>
-          <span class="exp-pill">Machine Learning</span><span class="exp-pill">Time-Series Analysis</span><span class="exp-pill">Anomaly Detection</span>
-          <span class="exp-pill">Cybersecurity</span><span class="exp-pill">Threat Modeling</span><span class="exp-pill">Data Visualization</span><span class="exp-pill">Sensor Networks</span>
-        </div>
       </div>
-      <div class="tl-dot-col">
-        <div class="tl-dot live" style="--dot-color:#818cf8;"></div>
-      </div>
-      <div class="tl-date">Jan 2026 – Present</div>
     </div>
 
-    <!-- 4 · Fraser Health — RIGHT card, LEFT date -->
-    <div class="tl-item right sr">
-      <div class="tl-date">Sep – Dec 2025</div>
-      <div class="tl-dot-col">
-        <div class="tl-dot" style="--dot-color:#f472b6;"></div>
-      </div>
-      <div class="exp-card" style="--card-accent:#f472b6; --card-glow:rgba(244,114,182,0.08); --icon-bg:rgba(244,114,182,0.1); --icon-border:rgba(244,114,182,0.25);">
-        <div class="exp-card-top">
-          <div class="exp-ico">🏥</div>
-          <div class="exp-meta">
-            <div class="exp-role">Technical Lead</div>
-            <div class="exp-company">Fraser Health Authority</div>
-            <div class="exp-when">September 2025 – December 2025</div>
+    <!-- ── DETAIL PANEL ── -->
+    <div class="detail-panel">
+      <div class="detail-inner show" id="detailInner">
+
+        <div class="detail-badge">
+          <div class="detail-badge-icon" id="detailIcon">⚡</div>
+          <div class="detail-badge-text">
+            <div class="detail-badge-company" id="detailBadgeCompany">FortisBC</div>
+            <div class="detail-badge-track" id="detailBadgeTrack">Track 01 · Energy</div>
           </div>
         </div>
-        <div class="exp-divider"></div>
-        <ul class="exp-bullets">
-          <li>Led full-stack development of a hospital-grade pediatric MRI simulator at Fraser Health — architecting C++/Python backend systems, FastAPI services, and a React/Redux clinician interface to prepare children for MRI without sedation.</li>
-          <li>Architected and built a hospital-grade pediatric MRI simulator in C++ and Python, accurately reproducing scanner sounds and visual sequences to prepare children for procedures without requiring sedation.</li>
-          <li>Designed low-latency real-time control logic and FastAPI backend services to handle simulation sequencing, audio playback, and dynamic parameter adjustment with sub-100ms response times.</li>
-          <li>Built a React/Redux clinician interface for configuring and running simulation sessions — enabling rapid iteration cycles and usability testing directly with Fraser Health clinical staff.</li>
-          <li>Defined Git branching strategy, code review process, and integration test suites across a multi-person team; delivered a working prototype on schedule for clinical evaluation.</li>
-        </ul>
-        <div class="exp-tech">
-          <span class="exp-pill">C++</span><span class="exp-pill">Python</span><span class="exp-pill">React</span><span class="exp-pill">Redux</span>
-          <span class="exp-pill">FastAPI</span><span class="exp-pill">Real-Time Systems</span><span class="exp-pill">Audio Processing</span>
-          <span class="exp-pill">REST APIs</span><span class="exp-pill">Medical Software</span><span class="exp-pill">Git</span>
-        </div>
+
+        <div class="detail-role" id="detailRole">Software Engineering Lead</div>
+        <div class="detail-when" id="detailWhen">January 2026 – Present <span class="live-badge">LIVE</span></div>
+
+        <div class="detail-section-label">Highlights</div>
+        <ul class="detail-bullets" id="detailBullets"></ul>
+
+        <div class="detail-section-label">Technologies</div>
+        <div class="detail-pills" id="detailPills"></div>
       </div>
     </div>
 
-    <!-- 5 · UVic Library — LEFT card, RIGHT date -->
-    <div class="tl-item left sr">
-      <div class="exp-card" style="--card-accent:#fbbf24; --card-glow:rgba(251,191,36,0.07); --icon-bg:rgba(251,191,36,0.1); --icon-border:rgba(251,191,36,0.25);">
-        <div class="exp-card-top">
-          <div class="exp-ico">🏛️</div>
-          <div class="exp-meta">
-            <div class="exp-role">Software Assistant</div>
-            <div class="exp-company">UVic McPherson Library · Digital Scholarship Commons</div>
-            <div class="exp-when">September 2025 – December 2025</div>
-          </div>
-        </div>
-        <div class="exp-divider"></div>
-        <ul class="exp-bullets">
-          <li>Supported digital fabrication and 3D design workflows at UVic's Digital Scholarship Commons — producing CAD models, mechanical assemblies, and prototypes in Fusion 360, SolidWorks, and Blender for student and faculty research projects.</li>
-          <li>Designed and produced 3D models, enclosures, and mechanical assemblies in Fusion 360, SolidWorks, and Blender for diverse student and faculty research projects ranging from scientific instruments to interactive art installations.</li>
-          <li>Diagnosed and resolved modeling, slicing, and hardware issues across FDM and resin printers — reducing print failure rates and shortening prototype turnaround times for students under deadline.</li>
-          <li>Delivered one-on-one technical consultations on CAD methodology, tolerancing, and design-for-print best practices, enabling students with no prior CAD experience to produce functional prototypes.</li>
-          <li>Co-facilitated workshops on digital fabrication tools and maker-space equipment, reaching 50+ students per term and building a culture of iterative, hands-on design thinking at UVic.</li>
-        </ul>
-        <div class="exp-tech">
-          <span class="exp-pill">Fusion 360</span><span class="exp-pill">SolidWorks</span><span class="exp-pill">Blender</span>
-          <span class="exp-pill">FDM Printing</span><span class="exp-pill">Resin Printing</span><span class="exp-pill">CAD Design</span>
-          <span class="exp-pill">Design-for-Manufacturing</span><span class="exp-pill">Rapid Prototyping</span><span class="exp-pill">Digital Fabrication</span>
-        </div>
-      </div>
-      <div class="tl-dot-col">
-        <div class="tl-dot" style="--dot-color:#fbbf24;"></div>
-      </div>
-      <div class="tl-date">Sep – Dec 2025</div>
-    </div>
+  </div><!-- /stage -->
 
-  </div><!-- /timeline-wrap -->
-
-  <!-- FOOTER -->
   <div class="page-footer">
     <div class="footer-links">
-      <a href="index.html">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-        Home
-      </a>
-      <a href="projects.html">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-        Projects
-      </a>
-      <a href="https://github.com/aashnaparikh" target="_blank">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
-        GitHub
-      </a>
-      <a href="mailto:aashnajigneshbhaip@uvic.ca">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-        Contact
-      </a>
-      <a href="resume.pdf" target="_blank">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-        Resume
-      </a>
+      <a href="index.html">Home</a>
+      <a href="projects.html">Projects</a>
+      <a href="https://github.com/aashnaparikh" target="_blank">GitHub</a>
+      <a href="mailto:aashnajigneshbhaip@uvic.ca">Contact</a>
+      <a href="resume.pdf" target="_blank">Resume</a>
     </div>
     <p>© 2025 Aashna Parikh · University of Victoria</p>
   </div>
-
-</div><!-- /page -->
+</div>
 
 <script>
-  const bar = document.getElementById('progress-bar');
-  const scrollBtn = document.getElementById('scroll-top');
-  window.addEventListener('scroll', () => {
-    const s = window.scrollY, t = document.documentElement.scrollHeight - window.innerHeight;
-    bar.style.width = (s / t * 100) + '%';
-    scrollBtn.classList.toggle('show', s > 300);
-  }, { passive: true });
+const EXP = [
+  {
+    color:'#0ea5e9', glow:'rgba(14,165,233,0.2)', glow2:'rgba(14,165,233,0.07)',
+    labelBg:'linear-gradient(145deg,#0c4a6e,#0369a1)',
+    labelBd:'rgba(14,165,233,0.5)', labelGlow:'rgba(14,165,233,0.45)',
+    dcBg:'rgba(14,165,233,0.12)', dcBd:'rgba(14,165,233,0.22)',
+    emoji:'⚡', company:'FortisBC', genre:'Energy',
+    role:'Software Engineering Lead',
+    when:'January 2026 – Present', live:true,
+    bullets:[
+      'Built 15+ PLC control modules — PID loops, fault detection, and pressure regulation — maintaining ±2% stability across 50+ sensor and I/O channels for renewable natural gas infrastructure.',
+      'Developed and maintained 1,000+ lines of production control software with real-time telemetry, structured documentation, and Git-based version control.',
+      'Led end-to-end integration, testing, and commissioning — resolving 10+ control-system faults to achieve stable, safety-critical 24/7 industrial deployment.'
+    ],
+    pills:['PLC Programming','Real-Time Systems','PID Control','Industrial Automation','Fault Detection','Telemetry','Systems Integration','Git']
+  },
+  {
+    color:'#10b981', glow:'rgba(16,185,129,0.2)', glow2:'rgba(16,185,129,0.07)',
+    labelBg:'linear-gradient(145deg,#064e3b,#065f46)',
+    labelBd:'rgba(16,185,129,0.5)', labelGlow:'rgba(16,185,129,0.45)',
+    dcBg:'rgba(16,185,129,0.12)', dcBd:'rgba(16,185,129,0.22)',
+    emoji:'🎓', company:'ECS Faculty – UVic', genre:'Academia',
+    role:'Undergraduate Research Assistant',
+    when:'January 2026 – Present', live:true,
+    bullets:[
+      'Conduct research alongside ECS faculty — developing software tools, data pipelines, and applying CS fundamentals across the full research lifecycle from problem formulation through implementation.',
+      'Translated open academic problems into working software prototypes and experimental systems through direct collaboration with faculty.',
+      'Developed automation scripts and data processing pipelines in Python to accelerate experiment cycles and ensure reproducible results.',
+      'Applied algorithms, data structures, and systems design to assist in formulating methodology, validating models, and interpreting quantitative outcomes.'
+    ],
+    pills:['Python','NumPy','Data Analysis','Algorithm Design','Research Methods','Automation Scripts','Academic Writing','Git']
+  },
+  {
+    color:'#818cf8', glow:'rgba(129,140,248,0.2)', glow2:'rgba(129,140,248,0.07)',
+    labelBg:'linear-gradient(145deg,#1e1b4b,#2e2b5f)',
+    labelBd:'rgba(129,140,248,0.5)', labelGlow:'rgba(129,140,248,0.45)',
+    dcBg:'rgba(129,140,248,0.12)', dcBd:'rgba(129,140,248,0.22)',
+    emoji:'🔬', company:'SOLIDS Lab – UVic', genre:'Research',
+    role:'Undergraduate Research Assistant',
+    when:'January 2026 – Present', live:true,
+    bullets:[
+      'Build Python ML pipelines and predictive models for distributed marine sensor networks — processing 10,000+ multi-sensor data points to detect ecosystem stressors and anomalies.',
+      'Built time-series forecasting models (scikit-learn, pandas) for sensor drift detection, anomaly detection, and environmental trend identification.',
+      'Conducted end-to-end cybersecurity threat modeling for marine sensing infrastructure — mapping attack surfaces and prototyping secure data-relay components.',
+      'Developed interactive data visualization dashboards; work contributed to an upcoming peer-reviewed publication on secure distributed environmental monitoring.'
+    ],
+    pills:['Python','scikit-learn','pandas','Machine Learning','Time-Series Analysis','Anomaly Detection','Cybersecurity','Data Visualization','Sensor Networks']
+  },
+  {
+    color:'#f472b6', glow:'rgba(244,114,182,0.2)', glow2:'rgba(244,114,182,0.07)',
+    labelBg:'linear-gradient(145deg,#4a044e,#701a75)',
+    labelBd:'rgba(244,114,182,0.5)', labelGlow:'rgba(244,114,182,0.45)',
+    dcBg:'rgba(244,114,182,0.12)', dcBd:'rgba(244,114,182,0.22)',
+    emoji:'🏥', company:'Fraser Health Authority', genre:'Healthcare',
+    role:'Technical Lead',
+    when:'September 2025 – December 2025', live:false,
+    bullets:[
+      'Led full-stack development of a hospital-grade pediatric MRI simulator — architecting C++/Python backend systems, FastAPI services, and a React/Redux clinician interface to prepare children for MRI without sedation.',
+      'Designed low-latency real-time control logic for simulation sequencing, audio playback, and dynamic parameter adjustment with sub-100ms response times.',
+      'Built a React/Redux clinician interface enabling rapid iteration cycles and usability testing directly with Fraser Health clinical staff.',
+      'Defined Git branching strategy, code review process, and integration test suites; delivered a working prototype on schedule for clinical evaluation.'
+    ],
+    pills:['C++','Python','React','Redux','FastAPI','Real-Time Systems','Audio Processing','REST APIs','Medical Software','Git']
+  },
+  {
+    color:'#fbbf24', glow:'rgba(251,191,36,0.2)', glow2:'rgba(251,191,36,0.07)',
+    labelBg:'linear-gradient(145deg,#451a03,#78350f)',
+    labelBd:'rgba(251,191,36,0.5)', labelGlow:'rgba(251,191,36,0.45)',
+    dcBg:'rgba(251,191,36,0.12)', dcBd:'rgba(251,191,36,0.22)',
+    emoji:'🏛️', company:'UVic McPherson Library', genre:'Education',
+    role:'Software Assistant',
+    when:'September 2025 – December 2025', live:false,
+    bullets:[
+      'Supported digital fabrication and 3D design workflows at UVic\'s Digital Scholarship Commons — producing CAD models and prototypes in Fusion 360, SolidWorks, and Blender.',
+      'Diagnosed and resolved modeling, slicing, and hardware issues across FDM and resin printers — reducing print failure rates and shortening prototype turnaround times.',
+      'Delivered one-on-one technical consultations on CAD methodology and design-for-print best practices, enabling students with no prior experience to produce functional prototypes.',
+      'Co-facilitated workshops on digital fabrication tools, reaching 50+ students per term and building a culture of iterative, hands-on design thinking.'
+    ],
+    pills:['Fusion 360','SolidWorks','Blender','FDM Printing','Resin Printing','CAD Design','Design-for-Manufacturing','Rapid Prototyping']
+  }
+];
 
-  // Scroll reveal
-  (function(){
-    var obs = new IntersectionObserver(function(entries){
-      entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); obs.unobserve(e.target); }});
-    }, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
-    document.querySelectorAll('.sr').forEach(function(el){ obs.observe(el); });
-  })();
+let cur = 0, progVal = 0, progTimer = null;
+
+const tracks     = document.querySelectorAll('.track');
+const disk       = document.getElementById('vinylDisk');
+const ambient    = document.getElementById('vinylAmbient');
+const label      = document.getElementById('vinylLabel');
+const emoji      = document.getElementById('vinylEmoji');
+const vname      = document.getElementById('vinylName');
+const tonearm    = document.getElementById('tonearm');
+const tonearmHd  = document.getElementById('tonearmHead');
+const npRole     = document.getElementById('npRole');
+const npCompany  = document.getElementById('npCompany');
+const npWhen     = document.getElementById('npWhen');
+const npComp     = document.getElementById('npCompany');
+const progFill   = document.getElementById('progressFill');
+const playBtn    = document.getElementById('playBtn');
+const prevBtn    = document.getElementById('prevBtn');
+const nextBtn    = document.getElementById('nextBtn');
+const waveform   = document.getElementById('waveform');
+const detailInner = document.getElementById('detailInner');
+const detailIcon  = document.getElementById('detailIcon');
+const detailBadgeCompany = document.getElementById('detailBadgeCompany');
+const detailBadgeTrack   = document.getElementById('detailBadgeTrack');
+const detailRole  = document.getElementById('detailRole');
+const detailWhen  = document.getElementById('detailWhen');
+const detailBullets = document.getElementById('detailBullets');
+const detailPills   = document.getElementById('detailPills');
+const root = document.documentElement;
+
+function selectTrack(idx, instant) {
+  cur = idx;
+  const e = EXP[idx];
+
+  // CSS vars
+  root.style.setProperty('--vc-color', e.color);
+  root.style.setProperty('--vc-glow',  e.glow);
+  root.style.setProperty('--dc-color', e.color);
+  root.style.setProperty('--dc-bg',    e.dcBg);
+  root.style.setProperty('--dc-bd',    e.dcBd);
+
+  // Ambient bg
+  document.getElementById('ambientBg').style.cssText = `
+    --ambient: ${e.glow};
+    --ambient2: ${e.glow2};
+  `;
+
+  // Wave bars color
+  waveform.querySelectorAll('.wave-bar').forEach(b => b.style.background = e.color);
+
+  // Tracks active
+  tracks.forEach((t,i) => t.classList.toggle('active', i===idx));
+
+  // Needle animation
+  if (!instant) {
+    tonearm.classList.remove('dropped');
+    tonearm.classList.add('lifted');
+    disk.classList.add('fast');
+    setTimeout(() => {
+      // Swap label content mid-spin
+      emoji.textContent = e.emoji;
+      vname.textContent = e.company;
+      label.style.background = e.labelBg;
+      label.style.borderColor = e.labelBd;
+      label.style.boxShadow = `0 0 0 4px rgba(0,0,0,0.45), 0 0 32px ${e.labelGlow}, inset 0 1px 0 rgba(255,255,255,0.1)`;
+      ambient.style.background = `radial-gradient(ellipse at center, ${e.glow} 0%, transparent 68%)`;
+      tonearmHd.style.background = `linear-gradient(135deg, ${e.color}, ${e.color}cc)`;
+      tonearmHd.style.boxShadow = `0 0 14px ${e.glow}`;
+      // update now-playing
+      npRole.textContent = e.role;
+      npCompany.textContent = e.company;
+      npCompany.style.color = e.color;
+      npWhen.textContent = e.when;
+      playBtn.style.background = e.color;
+      playBtn.style.boxShadow = `0 6px 20px ${e.glow}`;
+      progFill.style.background = e.color;
+    }, 400);
+    setTimeout(() => {
+      tonearm.classList.remove('lifted');
+      tonearm.classList.add('dropped');
+      disk.classList.remove('fast');
+    }, 900);
+  } else {
+    emoji.textContent = e.emoji;
+    vname.textContent = e.company;
+    label.style.background = e.labelBg;
+    label.style.borderColor = e.labelBd;
+    label.style.boxShadow = `0 0 0 4px rgba(0,0,0,0.45), 0 0 32px ${e.labelGlow}, inset 0 1px 0 rgba(255,255,255,0.1)`;
+    ambient.style.background = `radial-gradient(ellipse at center, ${e.glow} 0%, transparent 68%)`;
+    tonearmHd.style.background = `linear-gradient(135deg, ${e.color}, ${e.color}cc)`;
+    tonearmHd.style.boxShadow = `0 0 14px ${e.glow}`;
+    npRole.textContent = e.role;
+    npCompany.textContent = e.company;
+    npCompany.style.color = e.color;
+    npWhen.textContent = e.when;
+    playBtn.style.background = e.color;
+    playBtn.style.boxShadow = `0 6px 20px ${e.glow}`;
+    progFill.style.background = e.color;
+  }
+
+  // Detail panel fade
+  detailInner.classList.remove('show');
+  setTimeout(() => {
+    detailIcon.textContent = e.emoji;
+    detailIcon.style.background = e.dcBg;
+    detailIcon.style.borderColor = e.dcBd;
+    detailBadgeCompany.textContent = e.company;
+    detailBadgeTrack.textContent = `Track 0${idx+1} · ${e.genre}`;
+    detailBadgeTrack.style.color = e.color;
+    detailRole.textContent = e.role;
+    detailWhen.innerHTML = e.when + (e.live ? ' <span class="live-badge">LIVE</span>' : '');
+    detailBullets.innerHTML = e.bullets.map(b => `<li>${b}</li>`).join('');
+    detailPills.innerHTML = e.pills.map(p => `<span class="detail-pill">${p}</span>`).join('');
+    detailInner.classList.add('show');
+  }, instant ? 0 : 220);
+
+  // Progress bar
+  progVal = 0; progFill.style.width = '0%';
+  clearInterval(progTimer);
+  progTimer = setInterval(() => {
+    progVal = Math.min(progVal + 0.12, 100);
+    progFill.style.width = progVal + '%';
+    if (progVal >= 100) clearInterval(progTimer);
+  }, 100);
+}
+
+tracks.forEach((t, i) => t.addEventListener('click', () => selectTrack(i)));
+prevBtn.addEventListener('click', () => selectTrack((cur - 1 + EXP.length) % EXP.length));
+nextBtn.addEventListener('click', () => selectTrack((cur + 1) % EXP.length));
+
+window.addEventListener('scroll', () => {
+  document.getElementById('scroll-top').classList.toggle('show', scrollY > 200);
+}, { passive: true });
+
+selectTrack(0, true);
+
+// ── AUTO-ADVANCE every 25 seconds ───────────────────────────
+let autoTimer = null;
+function resetAutoTimer() {
+  clearInterval(autoTimer);
+  autoTimer = setInterval(() => {
+    selectTrack((cur + 1) % EXP.length);
+  }, 25000);
+}
+// Reset timer whenever user manually picks a track
+tracks.forEach(t => t.addEventListener('click', resetAutoTimer));
+prevBtn.addEventListener('click', resetAutoTimer);
+nextBtn.addEventListener('click', resetAutoTimer);
+resetAutoTimer();
+
+// ── DRAG-TO-ROTATE ──────────────────────────────────────────
+(function(){
+  const player   = document.querySelector('.vinyl-player');
+  const disk     = document.getElementById('vinylDisk');
+  const svg      = document.getElementById('dragRingSvg');
+  const ringFill = document.getElementById('dragRingFill');
+  const CIRCUM   = 1232; // 2π × 196
+  const FULL     = 360;
+
+  let dragging = false, lastAngle = 0;
+  let accumulated = 0, visualRot = 0;
+  // velocity tracking for momentum
+  let velocity = 0, lastDelta = 0, rafId = null;
+
+  function getAngle(e) {
+    const r = disk.getBoundingClientRect();
+    const cx = r.left + r.width  / 2;
+    const cy = r.top  + r.height / 2;
+    const cx2 = e.touches ? e.touches[0].clientX : e.clientX;
+    const cy2 = e.touches ? e.touches[0].clientY : e.clientY;
+    return Math.atan2(cy2 - cy, cx2 - cx) * 180 / Math.PI;
+  }
+
+  function norm(d) {
+    if (d > 180)  d -= 360;
+    if (d < -180) d += 360;
+    return d;
+  }
+
+  function setRing(frac) {
+    const offset = CIRCUM * (1 - Math.min(Math.abs(frac), 1));
+    ringFill.style.strokeDashoffset = offset;
+    const color = getComputedStyle(document.documentElement).getPropertyValue('--vc-color').trim();
+    ringFill.style.stroke = color;
+    svg.classList.toggle('visible', Math.abs(frac) > 0.005);
+  }
+
+  function applyAccum(extra) {
+    accumulated += extra;
+    visualRot   += extra;
+    disk.style.transform = `rotate(${visualRot}deg)`;
+    setRing(accumulated / FULL);
+
+    if (accumulated >= FULL) {
+      accumulated -= FULL;
+      selectTrack((cur + 1) % EXP.length);
+      setRing(accumulated / FULL);
+    } else if (accumulated <= -FULL) {
+      accumulated += FULL;
+      selectTrack((cur - 1 + EXP.length) % EXP.length);
+      setRing(accumulated / FULL);
+    }
+  }
+
+  function onStart(e) {
+    if (e.target.closest('.tonearm-wrap')) return;
+    if (e.type === 'mousedown' && e.button !== 0) return;
+    cancelAnimationFrame(rafId);
+    dragging = true; velocity = 0;
+    const m = new DOMMatrix(getComputedStyle(disk).transform);
+    visualRot = Math.atan2(m.b, m.a) * 180 / Math.PI;
+    disk.style.animationPlayState = 'paused';
+    disk.style.transform = `rotate(${visualRot}deg)`;
+    lastAngle = getAngle(e);
+    accumulated = 0;
+    player.style.cursor = 'grabbing';
+    e.preventDefault();
+  }
+
+  function onMove(e) {
+    if (!dragging) return;
+    const angle = getAngle(e);
+    const delta = norm(angle - lastAngle);
+    lastAngle = angle;
+    velocity = delta * 0.6 + velocity * 0.4; // smooth velocity
+    applyAccum(delta);
+  }
+
+  function onEnd() {
+    if (!dragging) return;
+    dragging = false;
+    player.style.cursor = 'grab';
+
+    // Momentum coast
+    function coast() {
+      if (Math.abs(velocity) < 0.08) {
+        // Done — snap ring away and resume CSS spin
+        accumulated = 0;
+        setRing(0);
+        disk.style.animationPlayState = '';
+        disk.style.transform = '';
+        return;
+      }
+      applyAccum(velocity);
+      velocity *= 0.88; // friction
+      rafId = requestAnimationFrame(coast);
+    }
+    rafId = requestAnimationFrame(coast);
+  }
+
+  player.addEventListener('mousedown',  onStart);
+  player.addEventListener('touchstart', onStart, { passive: false });
+  window.addEventListener('mousemove',  onMove);
+  window.addEventListener('touchmove',  onMove, { passive: true });
+  window.addEventListener('mouseup',    onEnd);
+  window.addEventListener('touchend',   onEnd);
+})();
 </script>
 </body>
 </html>
