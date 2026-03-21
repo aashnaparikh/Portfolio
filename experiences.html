@@ -7,7 +7,6 @@
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-
     ::-webkit-scrollbar { width: 4px; }
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 10px; }
@@ -20,7 +19,6 @@
       overflow-x: hidden;
     }
 
-    /* Ambient background that shifts with track */
     .ambient-bg {
       position: fixed; inset: 0; pointer-events: none; z-index: 0;
       background:
@@ -30,7 +28,6 @@
       transition: background 1s ease;
     }
 
-    /* ── NAV ── */
     nav {
       position: fixed; top: 0; width: 100%; height: 56px;
       background: rgba(6,6,11,0.75);
@@ -62,7 +59,6 @@
     }
     .nav-cta:hover { opacity: 0.88; transform: translateY(-1px); }
 
-    /* ── PAGE ── */
     .page {
       position: relative; z-index: 1;
       min-height: 100vh;
@@ -70,7 +66,6 @@
       padding-top: 56px;
     }
 
-    /* ── HEADER ── */
     .page-header {
       text-align: center;
       padding: 44px 24px 28px;
@@ -93,7 +88,88 @@
     }
     .page-sub { font-size: 0.88rem; color: #38385a; letter-spacing: 0.2px; }
 
-    /* ── MAIN STAGE ── */
+    /* ══════════════════════════════════════
+       PLAYLIST SELECTION SCREEN
+    ══════════════════════════════════════ */
+    .playlist-select {
+      flex: 1;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 0 24px 60px;
+      animation: riseIn 0.5s cubic-bezier(0.22,1,0.36,1) 0.2s both;
+    }
+    .pl-prompt-eyebrow {
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase;
+      color: #252538; margin-bottom: 28px; text-align: center;
+    }
+    .pl-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 20px; max-width: 900px; width: 100%;
+    }
+    .pl-card {
+      background: linear-gradient(145deg, #0e0e18 0%, #0a0a12 100%);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 24px; padding: 32px 28px 28px;
+      cursor: pointer;
+      transition: transform .35s cubic-bezier(0.22,1,0.36,1), border-color .3s, box-shadow .3s;
+      position: relative; overflow: hidden;
+    }
+    .pl-card > * { position: relative; z-index: 1; }
+    .pl-card::before {
+      content: ''; position: absolute; inset: 0; border-radius: 24px; pointer-events: none;
+      background: radial-gradient(ellipse 80% 60% at 50% -10%, var(--pl-glow), transparent 65%);
+      opacity: 0; transition: opacity .35s; z-index: 0;
+    }
+    .pl-card:hover { transform: translateY(-8px); border-color: var(--pl-border); box-shadow: 0 28px 70px rgba(0,0,0,0.55), 0 0 50px var(--pl-glow2); }
+    .pl-card:hover::before { opacity: 1; }
+    .pl-card-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 22px; }
+    .pl-cover {
+      width: 80px; height: 80px; border-radius: 18px;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+      font-size: 2.5rem; position: relative; overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    }
+    .pl-cover::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, transparent 60%); }
+    .pl-play-btn {
+      width: 46px; height: 46px; border-radius: 50%;
+      background: var(--pl-color); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 6px 20px var(--pl-glow);
+      transition: transform .22s, box-shadow .22s;
+    }
+    .pl-card:hover .pl-play-btn { transform: scale(1.12); box-shadow: 0 8px 28px var(--pl-glow); }
+    .pl-badge {
+      font-size: 0.55rem; font-weight: 800; letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--pl-color); background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07); border-radius: 20px;
+      padding: 4px 10px; display: inline-block; margin-bottom: 10px;
+    }
+    .pl-title { font-size: 1.35rem; font-weight: 800; color: #e0e0f8; letter-spacing: -0.5px; line-height: 1.1; margin-bottom: 6px; }
+    .pl-count { font-size: 0.67rem; color: #2a2a40; margin-bottom: 20px; }
+    .pl-preview { display: flex; flex-direction: column; gap: 6px; border-top: 1px solid rgba(255,255,255,0.04); padding-top: 16px; }
+    .pl-track-preview { font-size: 0.7rem; color: #242436; display: flex; align-items: center; gap: 7px; padding: 4px 0; transition: color .25s; }
+    .pl-card:hover .pl-track-preview { color: #3c3c58; }
+    .pl-track-preview.more { color: #1c1c2e; font-style: italic; }
+    .pl-card:hover .pl-track-preview.more { color: #28283e; }
+
+    /* ══════════════════════════════════════
+       BACK BUTTON
+    ══════════════════════════════════════ */
+    .back-btn {
+      background: none; border: none; cursor: pointer;
+      display: flex; align-items: center; gap: 5px;
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+      color: #202035; padding: 0; margin-bottom: 18px;
+      transition: color .2s;
+    }
+    .back-btn:hover { color: #818cf8; }
+    .back-btn svg { transition: transform .2s; }
+    .back-btn:hover svg { transform: translateX(-2px); }
+
+    /* ══════════════════════════════════════
+       STAGE
+    ══════════════════════════════════════ */
     .stage {
       flex: 1;
       display: grid;
@@ -137,8 +213,6 @@
       border-color: rgba(255,255,255,0.08);
       transform: translateX(5px);
     }
-
-    /* EQ bars + track number */
     .track-num-wrap {
       width: 24px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
     }
@@ -165,8 +239,6 @@
       0%,100% { transform: scaleY(0.3); }
       50%      { transform: scaleY(1); }
     }
-
-    /* Album art thumbnail */
     .track-art {
       width: 50px; height: 50px; border-radius: 12px; flex-shrink: 0;
       display: flex; align-items: center; justify-content: center;
@@ -185,7 +257,6 @@
       background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 60%);
       border-radius: 12px;
     }
-
     .track-info { flex: 1; min-width: 0; }
     .track-title {
       font-size: 0.84rem; font-weight: 600;
@@ -195,7 +266,6 @@
     .track.active .track-title { color: #dcdcf5; }
     .track-artist { font-size: 0.69rem; color: #2e2e46; margin-top: 3px; transition: color .22s; }
     .track.active .track-artist { color: var(--tc, #818cf8); }
-
     .track-right { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex-shrink: 0; }
     .live-dot-badge {
       display: inline-flex; align-items: center; gap: 3px;
@@ -273,7 +343,6 @@
       padding: 0 28px;
       position: sticky; top: 68px;
     }
-
     .vinyl-player {
       position: relative;
       width: 390px; height: 390px;
@@ -287,12 +356,11 @@
       opacity: 0; transition: opacity 0.2s;
     }
     .drag-ring-svg.visible { opacity: 1; }
-    .drag-ring-track {
-      fill: none; stroke: rgba(255,255,255,0.06); stroke-width: 4;
-    }
+    .drag-ring-track { fill: none; stroke: rgba(255,255,255,0.06); stroke-width: 4; }
     .drag-ring-fill {
       fill: none; stroke: #818cf8; stroke-width: 4; stroke-linecap: round;
       transition: stroke 0.3s;
+      filter: drop-shadow(0 0 4px var(--vc-color, #818cf8));
     }
     .drag-hint {
       font-size: 0.6rem; color: #252538; text-align: center;
@@ -300,83 +368,43 @@
       display: flex; align-items: center; justify-content: center; gap: 6px;
     }
     .drag-hint svg { opacity: 0.4; }
-    /* drag fill arc glow */
-    .drag-ring-fill { filter: drop-shadow(0 0 4px var(--vc-color, #818cf8)); }
-
-    /* Outer ambient ring */
     .vinyl-ambient {
-      position: absolute;
-      inset: -48px;
-      border-radius: 50%;
-      background: radial-gradient(ellipse at center,
-        var(--vc-glow, rgba(129,140,248,0.16)) 0%,
-        transparent 68%);
-      transition: background 0.9s ease;
-      pointer-events: none;
+      position: absolute; inset: -48px; border-radius: 50%;
+      background: radial-gradient(ellipse at center, var(--vc-glow, rgba(129,140,248,0.16)) 0%, transparent 68%);
+      transition: background 0.9s ease; pointer-events: none;
     }
-    /* Second outer glow pulse */
     .vinyl-ambient::after {
-      content: '';
-      position: absolute; inset: 20px;
-      border-radius: 50%;
-      background: radial-gradient(ellipse at center,
-        var(--vc-glow, rgba(129,140,248,0.1)) 0%,
-        transparent 70%);
+      content: ''; position: absolute; inset: 20px; border-radius: 50%;
+      background: radial-gradient(ellipse at center, var(--vc-glow, rgba(129,140,248,0.1)) 0%, transparent 70%);
       animation: ambientPulse 3s ease-in-out infinite;
     }
     @keyframes ambientPulse { 0%,100%{opacity:0.6;} 50%{opacity:1;} }
-
-    /* The disk */
     .vinyl-disk {
-      position: absolute; inset: 0;
-      border-radius: 50%;
+      position: absolute; inset: 0; border-radius: 50%;
       background:
-        /* Highlight shimmer */
         radial-gradient(ellipse 60% 30% at 30% 25%, rgba(255,255,255,0.04) 0%, transparent 60%),
-        /* Groove rings */
-        repeating-radial-gradient(
-          circle at center,
-          transparent 0px,
-          transparent 5px,
-          rgba(255,255,255,0.014) 5px,
-          rgba(255,255,255,0.014) 6px
-        ),
-        /* Base */
+        repeating-radial-gradient(circle at center, transparent 0px, transparent 5px, rgba(255,255,255,0.014) 5px, rgba(255,255,255,0.014) 6px),
         radial-gradient(circle at center, #1c1c26 0%, #101018 45%, #08080e 100%);
-      box-shadow:
-        0 0 0 1px rgba(255,255,255,0.07),
-        0 0 0 2px rgba(0,0,0,0.6),
-        0 40px 100px rgba(0,0,0,0.85),
-        inset 0 0 60px rgba(0,0,0,0.4);
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.07), 0 0 0 2px rgba(0,0,0,0.6), 0 40px 100px rgba(0,0,0,0.85), inset 0 0 60px rgba(0,0,0,0.4);
       animation: spin 10s linear infinite;
       will-change: transform;
     }
     .vinyl-disk.fast { animation: spin 2.2s linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
-
-    /* Reflection strip across disk */
     .vinyl-disk::before {
-      content: '';
-      position: absolute;
+      content: ''; position: absolute;
       top: 8%; left: 15%; right: 35%; bottom: 55%;
       background: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, transparent 70%);
-      border-radius: 50%;
-      pointer-events: none;
+      border-radius: 50%; pointer-events: none;
     }
-
-    /* Center label */
     .vinyl-label {
       position: absolute; top: 50%; left: 50%;
       transform: translate(-50%, -50%);
-      width: 118px; height: 118px;
-      border-radius: 50%;
+      width: 118px; height: 118px; border-radius: 50%;
       display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px;
       background: var(--vl-bg, linear-gradient(145deg, #1e1b4b, #2e2b5f));
       border: 2.5px solid var(--vl-bd, rgba(129,140,248,0.4));
-      box-shadow:
-        0 0 0 4px rgba(0,0,0,0.45),
-        0 0 30px var(--vl-glow, rgba(129,140,248,0.4)),
-        inset 0 1px 0 rgba(255,255,255,0.1);
+      box-shadow: 0 0 0 4px rgba(0,0,0,0.45), 0 0 30px var(--vl-glow, rgba(129,140,248,0.4)), inset 0 1px 0 rgba(255,255,255,0.1);
       transition: background 0.5s, border-color 0.5s, box-shadow 0.5s;
       z-index: 2;
       animation: counterSpin 10s linear infinite;
@@ -388,32 +416,22 @@
       font-size: 0.48rem; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase;
       color: rgba(255,255,255,0.5); max-width: 72px; text-align: center; line-height: 1.3;
     }
-    .vinyl-label-line {
-      width: 24px; height: 1px; background: rgba(255,255,255,0.15); margin: 1px 0;
-    }
-
-    /* Spindle */
+    .vinyl-label-line { width: 24px; height: 1px; background: rgba(255,255,255,0.15); margin: 1px 0; }
     .vinyl-spindle {
       position: absolute; top: 50%; left: 50%;
       transform: translate(-50%,-50%);
       width: 9px; height: 9px; border-radius: 50%;
       background: radial-gradient(circle at 35% 35%, #555, #111);
-      border: 1px solid rgba(255,255,255,0.15);
-      z-index: 3;
+      border: 1px solid rgba(255,255,255,0.15); z-index: 3;
     }
-
-    /* ── TONEARM ── */
     .tonearm-wrap {
-      position: absolute;
-      top: -18px; right: -22px;
-      width: 140px; height: 220px;
-      z-index: 10;
+      position: absolute; top: -18px; right: -22px;
+      width: 140px; height: 220px; z-index: 10;
       transform-origin: 22px 22px;
       transition: transform 0.9s cubic-bezier(0.34,1.3,0.64,1);
     }
     .tonearm-wrap.lifted  { transform: rotate(-30deg); }
     .tonearm-wrap.dropped { transform: rotate(3deg); }
-
     .tonearm-base {
       position: absolute; top: 0; right: 0;
       width: 44px; height: 44px; border-radius: 50%;
@@ -422,53 +440,37 @@
       box-shadow: 0 6px 20px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.07);
     }
     .tonearm-base::after {
-      content: '';
-      position: absolute; top: 50%; left: 50%;
+      content: ''; position: absolute; top: 50%; left: 50%;
       transform: translate(-50%,-50%);
       width: 10px; height: 10px; border-radius: 50%;
       background: radial-gradient(circle at 35% 35%, #888, #333);
       border: 1px solid rgba(255,255,255,0.15);
     }
-
     .tonearm-shaft {
-      position: absolute;
-      top: 20px; right: 20px;
+      position: absolute; top: 20px; right: 20px;
       width: 7px; height: 175px;
-      background: linear-gradient(180deg,
-        #6a6a7e 0%,
-        #4a4a5e 30%,
-        #3a3a4a 70%,
-        #2c2c38 100%);
-      border-radius: 4px;
-      transform-origin: top center;
-      transform: rotate(14deg);
+      background: linear-gradient(180deg, #6a6a7e 0%, #4a4a5e 30%, #3a3a4a 70%, #2c2c38 100%);
+      border-radius: 4px; transform-origin: top center; transform: rotate(14deg);
       box-shadow: -2px 0 6px rgba(0,0,0,0.5), 2px 0 2px rgba(255,255,255,0.04);
     }
-    /* Slight bend at bottom */
     .tonearm-shaft::after {
-      content: '';
-      position: absolute;
+      content: ''; position: absolute;
       bottom: -12px; left: -2px;
       width: 11px; height: 16px;
       background: linear-gradient(150deg, #3a3a4a, #252530);
-      border-radius: 3px;
-      transform: rotate(-6deg);
+      border-radius: 3px; transform: rotate(-6deg);
     }
-
     .tonearm-head {
-      position: absolute;
-      bottom: 4px; left: 50%;
+      position: absolute; bottom: 4px; left: 50%;
       transform: translateX(-60%) rotate(-14deg);
       width: 18px; height: 12px;
       background: linear-gradient(135deg, var(--vc-color, #818cf8), #5558e8);
       border-radius: 4px;
-      box-shadow: 0 0 12px var(--vc-glow, rgba(129,140,248,0.6)),
-                  0 2px 6px rgba(0,0,0,0.4);
+      box-shadow: 0 0 12px var(--vc-glow, rgba(129,140,248,0.6)), 0 2px 6px rgba(0,0,0,0.4);
       transition: background 0.5s, box-shadow 0.5s;
     }
     .tonearm-needle {
-      position: absolute;
-      bottom: -7px; left: 48%;
+      position: absolute; bottom: -7px; left: 48%;
       transform: translateX(-50%);
       width: 1.5px; height: 8px;
       background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.15));
@@ -476,33 +478,15 @@
     }
 
     /* ── NOW PLAYING BAR ── */
-    .now-playing {
-      width: 100%; max-width: 390px;
-      margin-top: 22px;
-    }
-    .np-info {
-      display: flex; align-items: center; justify-content: space-between;
-      margin-bottom: 10px;
-    }
-    .np-text {}
-    .np-role {
-      font-size: 0.9rem; font-weight: 700; color: #d8d8f0; line-height: 1.2;
-    }
-    .np-company {
-      font-size: 0.7rem; font-weight: 600;
-      color: var(--vc-color, #818cf8); margin-top: 2px;
-      transition: color 0.5s;
-    }
+    .now-playing { width: 100%; max-width: 390px; margin-top: 22px; }
+    .np-info { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+    .np-role { font-size: 0.9rem; font-weight: 700; color: #d8d8f0; line-height: 1.2; }
+    .np-company { font-size: 0.7rem; font-weight: 600; color: var(--vc-color, #818cf8); margin-top: 2px; transition: color 0.5s; }
     .np-when { font-size: 0.61rem; color: #2e2e46; margin-top: 1px; }
-
-    /* Waveform visualizer */
-    .waveform {
-      display: flex; align-items: flex-end; gap: 2px; height: 28px;
-    }
+    .waveform { display: flex; align-items: flex-end; gap: 2px; height: 28px; }
     .wave-bar {
       width: 3px; border-radius: 2px;
-      background: var(--vc-color, #818cf8);
-      opacity: 0.35;
+      background: var(--vc-color, #818cf8); opacity: 0.35;
       animation: waveBounce 1.2s ease-in-out infinite;
       transition: background 0.5s;
     }
@@ -517,8 +501,6 @@
     .wave-bar:nth-child(9)  { height: 16px; animation-delay: 0.2s; }
     .wave-bar:nth-child(10) { height: 8px;  animation-delay: 0.36s; }
     @keyframes waveBounce { 0%,100%{transform:scaleY(0.35);} 50%{transform:scaleY(1);} }
-
-    /* Progress track */
     .progress-track {
       width: 100%; height: 4px;
       background: rgba(255,255,255,0.06); border-radius: 4px;
@@ -526,25 +508,18 @@
     }
     .progress-fill {
       height: 100%; border-radius: 4px;
-      background: var(--vc-color, #818cf8);
-      transition: background 0.5s;
+      background: var(--vc-color, #818cf8); transition: background 0.5s;
       width: 0%; position: relative;
     }
     .progress-fill::after {
-      content: '';
-      position: absolute; right: -4px; top: 50%;
+      content: ''; position: absolute; right: -4px; top: 50%;
       transform: translateY(-50%);
       width: 10px; height: 10px; border-radius: 50%;
-      background: #fff;
-      box-shadow: 0 0 6px var(--vc-color, #818cf8);
+      background: #fff; box-shadow: 0 0 6px var(--vc-color, #818cf8);
       opacity: 0; transition: opacity 0.2s;
     }
     .progress-track:hover .progress-fill::after { opacity: 1; }
-
-    /* Controls */
-    .controls {
-      display: flex; align-items: center; gap: 8px;
-    }
+    .controls { display: flex; align-items: center; gap: 8px; }
     .ctrl {
       background: none; border: none; cursor: pointer; color: #2e2e46;
       width: 34px; height: 34px; border-radius: 50%;
@@ -554,24 +529,15 @@
     .ctrl:hover { color: #7070a0; background: rgba(255,255,255,0.05); }
     .ctrl.main {
       width: 48px; height: 48px;
-      background: var(--vc-color, #818cf8);
-      color: #fff;
+      background: var(--vc-color, #818cf8); color: #fff;
       box-shadow: 0 6px 20px var(--vc-glow, rgba(129,140,248,0.45));
       transition: background 0.5s, box-shadow 0.5s, transform .15s;
     }
     .ctrl.main:hover { transform: scale(1.06); }
-    .volume-wrap {
-      display: flex; align-items: center; gap: 7px; margin-left: auto;
-    }
+    .volume-wrap { display: flex; align-items: center; gap: 7px; margin-left: auto; }
     .vol-icon { color: #252535; }
-    .vol-bar {
-      width: 64px; height: 3px; background: rgba(255,255,255,0.06);
-      border-radius: 3px; position: relative; overflow: hidden;
-    }
-    .vol-fill {
-      height: 100%; width: 65%; border-radius: 3px;
-      background: rgba(255,255,255,0.15);
-    }
+    .vol-bar { width: 64px; height: 3px; background: rgba(255,255,255,0.06); border-radius: 3px; position: relative; overflow: hidden; }
+    .vol-fill { height: 100%; width: 65%; border-radius: 3px; background: rgba(255,255,255,0.15); }
 
     /* ══════════════════════════════════════
        DETAIL PANEL
@@ -584,43 +550,25 @@
       overflow-y: auto;
     }
     .detail-panel::-webkit-scrollbar { width: 3px; }
-
-    .detail-inner {
-      opacity: 0; transform: translateX(10px);
-      transition: opacity 0.4s ease, transform 0.4s ease;
-    }
+    .detail-inner { opacity: 0; transform: translateX(10px); transition: opacity 0.4s ease, transform 0.4s ease; }
     .detail-inner.show { opacity: 1; transform: translateX(0); }
-
-    /* Company badge */
     .detail-badge {
       display: inline-flex; align-items: center; gap: 10px;
       padding: 8px 14px 8px 10px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.07);
-      border-radius: 12px;
-      margin-bottom: 20px;
-      transition: border-color .3s;
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 12px; margin-bottom: 20px; transition: border-color .3s;
     }
     .detail-badge:hover { border-color: rgba(255,255,255,0.12); }
     .detail-badge-icon {
       width: 32px; height: 32px; border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1rem;
+      display: flex; align-items: center; justify-content: center; font-size: 1rem;
       background: var(--dc-bg, rgba(129,140,248,0.12));
       border: 1px solid var(--dc-bd, rgba(129,140,248,0.2));
     }
-    .detail-badge-text {}
     .detail-badge-company { font-size: 0.78rem; font-weight: 700; color: #c0c0e0; }
     .detail-badge-track { font-size: 0.58rem; color: var(--dc-color, #818cf8); font-weight: 600; letter-spacing: 0.5px; transition: color 0.4s; }
-
-    .detail-role {
-      font-size: 1.5rem; font-weight: 800; color: #eeeeff; line-height: 1.1;
-      margin-bottom: 8px; letter-spacing: -0.8px;
-    }
-    .detail-when {
-      font-size: 0.67rem; color: #303050; margin-bottom: 22px;
-      display: flex; align-items: center; gap: 8px;
-    }
+    .detail-role { font-size: 1.5rem; font-weight: 800; color: #eeeeff; line-height: 1.1; margin-bottom: 8px; letter-spacing: -0.8px; }
+    .detail-when { font-size: 0.67rem; color: #303050; margin-bottom: 22px; display: flex; align-items: center; gap: 8px; }
     .live-badge {
       display: inline-flex; align-items: center; gap: 4px;
       font-size: 0.5rem; font-weight: 800; letter-spacing: 1px;
@@ -632,47 +580,32 @@
       content: ''; width: 5px; height: 5px; border-radius: 50%;
       background: #4ade80; animation: liveblink 1.6s ease-in-out infinite;
     }
-
-    /* Section divider */
     .detail-section-label {
       font-size: 0.58rem; font-weight: 700; letter-spacing: 2.2px; text-transform: uppercase;
       color: #2e2e4a; margin-bottom: 14px;
       display: flex; align-items: center; gap: 10px;
     }
     .detail-section-label::after { content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.05); }
-
-    .detail-bullets {
-      list-style: none; display: flex; flex-direction: column; gap: 11px; margin-bottom: 24px;
-    }
-    .detail-bullets li {
-      font-size: 0.8rem; color: #62628a; line-height: 1.8;
-      display: flex; gap: 10px; align-items: flex-start;
-    }
+    .detail-bullets { list-style: none; display: flex; flex-direction: column; gap: 11px; margin-bottom: 24px; }
+    .detail-bullets li { font-size: 0.8rem; color: #62628a; line-height: 1.8; display: flex; gap: 10px; align-items: flex-start; }
     .detail-bullets li::before {
-      content: '▸';
-      color: var(--dc-color, #818cf8);
-      font-size: 0.58rem; flex-shrink: 0; margin-top: 5px;
-      transition: color 0.4s;
+      content: '▸'; color: var(--dc-color, #818cf8);
+      font-size: 0.58rem; flex-shrink: 0; margin-top: 5px; transition: color 0.4s;
     }
-
     .detail-pills { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 24px; }
     .detail-pill {
       font-size: 0.63rem; font-weight: 500; padding: 5px 11px; border-radius: 8px;
       background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
       color: #686890; transition: all .2s; cursor: default;
     }
-    .detail-pill:hover {
-      background: rgba(255,255,255,0.07); color: #9090b8;
-      border-color: rgba(255,255,255,0.13);
-      transform: translateY(-1px);
-    }
+    .detail-pill:hover { background: rgba(255,255,255,0.07); color: #9090b8; border-color: rgba(255,255,255,0.13); transform: translateY(-1px); }
 
     /* ── SCROLL TOP ── */
     #scroll-top {
       position: fixed; bottom: 28px; right: 28px;
       width: 38px; height: 38px; border-radius: 10px;
       background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
-      color: #6060808; color: #606080; cursor: pointer;
+      color: #606080; cursor: pointer;
       display: flex; align-items: center; justify-content: center;
       opacity: 0; pointer-events: none;
       transition: all .3s; z-index: 150;
@@ -688,11 +621,7 @@
       border-top: 1px solid rgba(255,255,255,0.03);
     }
     .footer-links { display: flex; justify-content: center; gap: 4px; flex-wrap: wrap; margin-bottom: 10px; }
-    .footer-links a {
-      color: #22223a; font-size: 0.69rem; text-decoration: none;
-      padding: 5px 12px; border-radius: 8px;
-      transition: all .2s;
-    }
+    .footer-links a { color: #22223a; font-size: 0.69rem; text-decoration: none; padding: 5px 12px; border-radius: 8px; transition: all .2s; }
     .footer-links a:hover { color: #8888b0; background: rgba(255,255,255,0.03); }
     .page-footer p { color: #181828; font-size: 0.62rem; }
 
@@ -705,6 +634,7 @@
       .tracklist, .detail-panel { position: static; border-left: none; padding-left: 0; max-height: none; }
       .vinyl-center { padding: 20px 0; margin: 0 auto; }
       .detail-panel { padding-top: 20px; }
+      .pl-grid { grid-template-columns: 1fr; max-width: 480px; }
     }
     @media (max-width: 640px) {
       nav { padding: 0 18px; }
@@ -742,87 +672,71 @@
       Professional Journey
     </div>
     <h1 class="page-title">Experience</h1>
-    <p class="page-sub">From utility infrastructure to marine ML research, building things that actually ship.</p>
+    <p class="page-sub" id="pageSub">Two playlists. Every track shipped.</p>
   </div>
 
-  <div class="stage">
+  <!-- ── PLAYLIST SELECTION ── -->
+  <div id="playlistSelect" class="playlist-select">
+    <div class="pl-prompt-eyebrow">Select a playlist to explore</div>
+    <div class="pl-grid">
 
-    <!-- ── TRACKLIST ── -->
+      <!-- Technical -->
+      <div class="pl-card" id="btnTech"
+        style="--pl-glow:rgba(99,102,241,0.22); --pl-glow2:rgba(99,102,241,0.1); --pl-border:rgba(99,102,241,0.32); --pl-color:#818cf8;">
+        <div class="pl-card-top">
+          <div class="pl-cover">⚡</div>
+          <div class="pl-play-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M5 3l14 9-14 9V3z"/></svg>
+          </div>
+        </div>
+        <div class="pl-badge">Technical</div>
+        <div class="pl-title">Technical Experience</div>
+        <div class="pl-count">5 tracks · Engineering &amp; Research</div>
+        <div class="pl-preview">
+          <div class="pl-track-preview">⚡ Software Engineering Lead</div>
+          <div class="pl-track-preview">🎓 Research Assistant · ECS Faculty</div>
+          <div class="pl-track-preview">🔬 Research Assistant · SOLIDS Lab</div>
+          <div class="pl-track-preview more">+ 2 more tracks</div>
+        </div>
+      </div>
+
+      <!-- Leadership -->
+      <div class="pl-card" id="btnLead"
+        style="--pl-glow:rgba(168,85,247,0.22); --pl-glow2:rgba(168,85,247,0.1); --pl-border:rgba(168,85,247,0.32); --pl-color:#a855f7;">
+        <div class="pl-card-top">
+          <div class="pl-cover">🏆</div>
+          <div class="pl-play-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M5 3l14 9-14 9V3z"/></svg>
+          </div>
+        </div>
+        <div class="pl-badge">Leadership</div>
+        <div class="pl-title">Leadership Experience</div>
+        <div class="pl-count">8 tracks · Programs &amp; Initiatives</div>
+        <div class="pl-preview">
+          <div class="pl-track-preview">🚀 Technical Program Director</div>
+          <div class="pl-track-preview">👩‍💻 Technical Project Co-ordinator</div>
+          <div class="pl-track-preview">📢 Marketing &amp; Communications</div>
+          <div class="pl-track-preview more">+ 5 more tracks</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── STAGE (hidden until playlist selected) ── -->
+  <div class="stage" id="vinylStage" style="display:none">
+
+    <!-- TRACKLIST -->
     <div class="tracklist">
+      <button class="back-btn" id="backBtn">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+        Playlists
+      </button>
       <div class="tl-header">
-        <span class="tl-header-label">Tracklist</span>
-        <span class="tl-header-count">5 tracks</span>
+        <span class="tl-header-label" id="tlLabel">Tracklist</span>
+        <span class="tl-header-count" id="tlCount">5 tracks</span>
       </div>
-
-      <div class="track active" data-idx="0"
-        style="--tc:#0ea5e9; --ta-bg:rgba(14,165,233,0.1); --ta-bd:rgba(14,165,233,0.2); --ta-glow:rgba(14,165,233,0.45);">
-        <div class="track-num-wrap">
-          <span class="track-num">01</span>
-          <div class="track-eq"><span></span><span></span><span></span><span></span></div>
-        </div>
-        <div class="track-art">⚡</div>
-        <div class="track-info">
-          <div class="track-title">Software Engineering Lead</div>
-          <div class="track-artist">FortisBC</div>
-        </div>
-        <div class="track-right"><span class="live-dot-badge">LIVE</span></div>
-      </div>
-
-      <div class="track" data-idx="1"
-        style="--tc:#10b981; --ta-bg:rgba(16,185,129,0.1); --ta-bd:rgba(16,185,129,0.2); --ta-glow:rgba(16,185,129,0.45);">
-        <div class="track-num-wrap">
-          <span class="track-num">02</span>
-          <div class="track-eq"><span></span><span></span><span></span><span></span></div>
-        </div>
-        <div class="track-art">🎓</div>
-        <div class="track-info">
-          <div class="track-title">Undergrad Research Assistant</div>
-          <div class="track-artist">ECS Faculty, UVic</div>
-        </div>
-        <div class="track-right"><span class="live-dot-badge">LIVE</span></div>
-      </div>
-
-      <div class="track" data-idx="2"
-        style="--tc:#818cf8; --ta-bg:rgba(129,140,248,0.1); --ta-bd:rgba(129,140,248,0.2); --ta-glow:rgba(129,140,248,0.45);">
-        <div class="track-num-wrap">
-          <span class="track-num">03</span>
-          <div class="track-eq"><span></span><span></span><span></span><span></span></div>
-        </div>
-        <div class="track-art">🔬</div>
-        <div class="track-info">
-          <div class="track-title">Undergrad Research Assistant</div>
-          <div class="track-artist">SOLIDS Lab, UVic</div>
-        </div>
-        <div class="track-right"><span class="live-dot-badge">LIVE</span></div>
-      </div>
-
-      <div class="track" data-idx="3"
-        style="--tc:#f472b6; --ta-bg:rgba(244,114,182,0.1); --ta-bd:rgba(244,114,182,0.2); --ta-glow:rgba(244,114,182,0.45);">
-        <div class="track-num-wrap">
-          <span class="track-num">04</span>
-          <div class="track-eq"><span></span><span></span><span></span><span></span></div>
-        </div>
-        <div class="track-art">🏥</div>
-        <div class="track-info">
-          <div class="track-title">Technical Lead</div>
-          <div class="track-artist">Fraser Health Authority</div>
-        </div>
-        <div class="track-right"><span class="track-year">2025</span></div>
-      </div>
-
-      <div class="track" data-idx="4"
-        style="--tc:#fbbf24; --ta-bg:rgba(251,191,36,0.1); --ta-bd:rgba(251,191,36,0.2); --ta-glow:rgba(251,191,36,0.45);">
-        <div class="track-num-wrap">
-          <span class="track-num">05</span>
-          <div class="track-eq"><span></span><span></span><span></span><span></span></div>
-        </div>
-        <div class="track-art">🏛️</div>
-        <div class="track-info">
-          <div class="track-title">Software Assistant</div>
-          <div class="track-artist">UVic McPherson Library</div>
-        </div>
-        <div class="track-right"><span class="track-year">2025</span></div>
-      </div>
+      <div id="tracklistItems"></div>
 
       <!-- Projects card -->
       <a href="projects.html" class="projects-card">
@@ -845,11 +759,10 @@
       </a>
     </div>
 
-    <!-- ── VINYL ── -->
+    <!-- VINYL -->
     <div class="vinyl-center">
       <div class="vinyl-player">
         <div class="vinyl-ambient" id="vinylAmbient"></div>
-
         <div class="vinyl-disk" id="vinylDisk">
           <div class="vinyl-label" id="vinylLabel">
             <div class="vinyl-label-emoji" id="vinylEmoji">⚡</div>
@@ -858,8 +771,6 @@
           </div>
           <div class="vinyl-spindle"></div>
         </div>
-
-        <!-- Drag progress ring -->
         <svg class="drag-ring-svg" id="dragRingSvg" viewBox="0 0 402 402">
           <circle class="drag-ring-track" cx="201" cy="201" r="196"/>
           <circle class="drag-ring-fill" id="dragRingFill" cx="201" cy="201" r="196"
@@ -881,13 +792,12 @@
         rotate the vinyl to switch tracks
       </div>
 
-      <!-- Now playing -->
       <div class="now-playing">
         <div class="np-info">
           <div class="np-text">
-            <div class="np-role" id="npRole">Software Engineering Lead</div>
-            <div class="np-company" id="npCompany">FortisBC</div>
-            <div class="np-when" id="npWhen">January 2026, Present</div>
+            <div class="np-role" id="npRole">—</div>
+            <div class="np-company" id="npCompany">—</div>
+            <div class="np-when" id="npWhen">—</div>
           </div>
           <div class="waveform" id="waveform">
             <div class="wave-bar"></div><div class="wave-bar"></div>
@@ -897,11 +807,9 @@
             <div class="wave-bar"></div><div class="wave-bar"></div>
           </div>
         </div>
-
         <div class="progress-track">
           <div class="progress-fill" id="progressFill"></div>
         </div>
-
         <div class="controls">
           <button class="ctrl" id="prevBtn">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19 20L9 12l10-8v16z"/><rect x="5" y="4" width="2" height="16" rx="1"/></svg>
@@ -920,24 +828,20 @@
       </div>
     </div>
 
-    <!-- ── DETAIL PANEL ── -->
+    <!-- DETAIL PANEL -->
     <div class="detail-panel">
       <div class="detail-inner show" id="detailInner">
-
         <div class="detail-badge">
           <div class="detail-badge-icon" id="detailIcon">⚡</div>
           <div class="detail-badge-text">
-            <div class="detail-badge-company" id="detailBadgeCompany">FortisBC</div>
-            <div class="detail-badge-track" id="detailBadgeTrack">Track 01 · Energy</div>
+            <div class="detail-badge-company" id="detailBadgeCompany">—</div>
+            <div class="detail-badge-track" id="detailBadgeTrack">Track 01</div>
           </div>
         </div>
-
-        <div class="detail-role" id="detailRole">Software Engineering Lead</div>
-        <div class="detail-when" id="detailWhen">January 2026, Present <span class="live-badge">LIVE</span></div>
-
+        <div class="detail-role" id="detailRole">—</div>
+        <div class="detail-when" id="detailWhen">—</div>
         <div class="detail-section-label">Highlights</div>
         <ul class="detail-bullets" id="detailBullets"></ul>
-
         <div class="detail-section-label">Technologies</div>
         <div class="detail-pills" id="detailPills"></div>
       </div>
@@ -958,7 +862,8 @@
 </div>
 
 <script>
-const EXP = [
+// ── EXPERIENCE DATA ──────────────────────────────────────────
+const TECH_EXP = [
   {
     color:'#0ea5e9', glow:'rgba(14,165,233,0.2)', glow2:'rgba(14,165,233,0.07)',
     labelBg:'linear-gradient(145deg,#0c4a6e,#0369a1)',
@@ -968,7 +873,7 @@ const EXP = [
     role:'Software Engineering Lead',
     when:'January 2026, Present', live:true,
     bullets:[
-      'Built 15+ PLC control modules, PID loops, fault detection, and pressure regulation, maintaining ±2% stability across 50+ sensor and I/O channels for renewable natural gas infrastructure.',
+      'Built 15+ PLC control modules, PID loops, fault detection, and pressure regulation, maintaining 2% stability across 50+ sensor and I/O channels for renewable natural gas infrastructure.',
       'Developed and maintained 1,000+ lines of production control software with real-time telemetry, structured documentation, and Git-based version control.',
       'Led end-to-end integration, testing, and commissioning, resolving 10+ control-system faults to achieve stable, safety-critical 24/7 industrial deployment.'
     ],
@@ -1040,65 +945,212 @@ const EXP = [
   }
 ];
 
-let cur = 0, progVal = 0, progTimer = null;
+const LEAD_EXP = [
+  {
+    color:'#8b5cf6', glow:'rgba(139,92,246,0.2)', glow2:'rgba(139,92,246,0.07)',
+    labelBg:'linear-gradient(145deg,#2e1065,#4c1d95)',
+    labelBd:'rgba(139,92,246,0.5)', labelGlow:'rgba(139,92,246,0.45)',
+    dcBg:'rgba(139,92,246,0.12)', dcBd:'rgba(139,92,246,0.22)',
+    emoji:'⚗️', company:'Research Lab', genre:'Research',
+    role:'Undergraduate Research Assistant',
+    when:'2024, Present', live:true,
+    bullets:[
+      'Spearheaded the high-performance optimization of data analysis workflows using Codon, improving computational efficiency and scalability for large-scale datasets.',
+      'Maintained 100% documentation integrity and data validation standards throughout the research pipeline.',
+      'Applied systems-level thinking to identify and eliminate bottlenecks in existing workflows, delivering measurable improvements in processing speed and reproducibility.'
+    ],
+    pills:['Codon','Python','Data Pipelines','Performance Optimization','Research Methods','Documentation','Data Validation','Workflow Automation']
+  },
+  {
+    color:'#f97316', glow:'rgba(249,115,22,0.2)', glow2:'rgba(249,115,22,0.07)',
+    labelBg:'linear-gradient(145deg,#431407,#7c2d12)',
+    labelBd:'rgba(249,115,22,0.5)', labelGlow:'rgba(249,115,22,0.45)',
+    dcBg:'rgba(249,115,22,0.12)', dcBd:'rgba(249,115,22,0.22)',
+    emoji:'🚀', company:'NASA Space Apps Hackathon', genre:'PM',
+    role:'Technical Program Director',
+    when:'October 2025, November 2025', live:false,
+    bullets:[
+      'Architected and delivered a comprehensive Project Management curriculum for a global-scale hackathon, training 50+ participants on Agile, Scrum, and Waterfall frameworks to ensure structured project execution under 48-hour constraints.',
+      'Orchestrated a multidisciplinary team of mentors and technical leads to deliver high-impact project milestones, synthesizing complex technical progress into a comprehensive executive presentation for global judges.',
+      'Served as primary PM consultant for competing teams, maintaining RAID documentation to surface risks, assumptions, and dependencies across workstreams, providing real-time mitigation strategies to align diverse technical teams with global competition standards.'
+    ],
+    pills:['Agile','Scrum','Waterfall','Project Management','RAID Documentation','Stakeholder Communication','Risk Mitigation','Executive Presentations']
+  },
+  {
+    color:'#ec4899', glow:'rgba(236,72,153,0.2)', glow2:'rgba(236,72,153,0.07)',
+    labelBg:'linear-gradient(145deg,#500724,#831843)',
+    labelBd:'rgba(236,72,153,0.5)', labelGlow:'rgba(236,72,153,0.45)',
+    dcBg:'rgba(236,72,153,0.12)', dcBd:'rgba(236,72,153,0.22)',
+    emoji:'👩‍💻', company:'WECS, VikesLabs', genre:'Leadership',
+    role:'Technical Project Co-ordinator',
+    when:'June 2025, January 2026', live:false,
+    bullets:[
+      'Spearheaded the full-cycle planning and execution of CodeHer+, a cross-functional hackathon; defined the project roadmap, managed critical path milestones, and ensured 100% on-time delivery of event operations.',
+      'Acted as the liaison between WECS and VikeLabs, facilitating weekly synchronization meetings and aligning diverse technical and creative teams to achieve unified event goals.',
+      'Directed administrative logistics including venue procurement, financial tracking, and registration systems for 50+ participants; generated resource requests and tracked allocation across volunteer and vendor workstreams to maintain budget integrity.',
+      'Identified and mitigated potential project risks in real-time, fostering an inclusive environment for marginalized students in tech, and conducted post-event retrospectives to document process improvements.'
+    ],
+    pills:['Event Management','Cross-functional Leadership','Stakeholder Alignment','Budget Tracking','Risk Management','Project Planning','Community Building']
+  },
+  {
+    color:'#14b8a6', glow:'rgba(20,184,166,0.2)', glow2:'rgba(20,184,166,0.07)',
+    labelBg:'linear-gradient(145deg,#042f2e,#134e4a)',
+    labelBd:'rgba(20,184,166,0.5)', labelGlow:'rgba(20,184,166,0.45)',
+    dcBg:'rgba(20,184,166,0.12)', dcBd:'rgba(20,184,166,0.22)',
+    emoji:'📢', company:'UVic ECS Faculty', genre:'Communications',
+    role:'Marketing &amp; Communications Assistant',
+    when:'January 2025, Present', live:true,
+    bullets:[
+      'Serving as a key lead in the comprehensive recreation of the Faculty website; managing end-to-end project lifecycle including requirement gathering, stakeholder feedback loops, and milestone tracking to ensure on-time delivery of a modernized, user-centric digital presence.',
+      'Orchestrating faculty-wide events by synchronizing with diverse technical, administrative, and student-led teams; managing complex logistics, resource allocation, and real-time troubleshooting to deliver seamless large-scale programming.',
+      'Acts as the primary administrator for project documentation and master schedules; maintains rigorous version control and status tracking for all communication workstreams, ensuring 100% alignment across departmental stakeholders.',
+      'Facilitates inclusive messaging and outreach initiatives by bridging gaps between faculty leadership and the student body; manages high-volume project timelines and ensures timely dissemination of critical information.'
+    ],
+    pills:['Project Management','Stakeholder Management','Content Strategy','Event Coordination','Documentation','Version Control','Communications','Faculty Operations']
+  },
+  {
+    color:'#a855f7', glow:'rgba(168,85,247,0.2)', glow2:'rgba(168,85,247,0.07)',
+    labelBg:'linear-gradient(145deg,#2e1065,#4c1d95)',
+    labelBd:'rgba(168,85,247,0.5)', labelGlow:'rgba(168,85,247,0.45)',
+    dcBg:'rgba(168,85,247,0.12)', dcBd:'rgba(168,85,247,0.22)',
+    emoji:'🏥', company:'Fraser Health Authority', genre:'Healthcare PM',
+    role:'Technical Lead',
+    when:'September 2025, December 2025', live:false,
+    bullets:[
+      'Led end-to-end development of a hospital-grade pediatric MRI simulator; synchronized workflows across C++, Python, and React workstreams to ensure a high-fidelity, integrated training system delivered on a condensed 4-month timeline.',
+      'Acted as the primary technical liaison for clinical stakeholders, translating complex medical requirements into actionable development sprints and conducting usability testing to align the final prototype with pediatric sedation reduction goals.',
+      'Directed project lifecycle management using Scrum and Kanban methodologies; facilitated sprint planning, managed the product backlog, and utilized Git-based version control to maintain 100% documentation integrity and system stability.',
+      'Orchestrated a multidisciplinary team of five to deliver high-impact project milestones, effectively communicating project value and securing alignment on final delivery goals.'
+    ],
+    pills:['Scrum','Kanban','Sprint Planning','Product Backlog','Clinical Stakeholders','Technical Leadership','Cross-functional Teams','Documentation']
+  },
+  {
+    color:'#10b981', glow:'rgba(16,185,129,0.2)', glow2:'rgba(16,185,129,0.07)',
+    labelBg:'linear-gradient(145deg,#022c22,#064e3b)',
+    labelBd:'rgba(16,185,129,0.5)', labelGlow:'rgba(16,185,129,0.45)',
+    dcBg:'rgba(16,185,129,0.12)', dcBd:'rgba(16,185,129,0.22)',
+    emoji:'🔬', company:'Women In Science', genre:'Events',
+    role:'Symposium Director',
+    when:'September 2024, March 2025', live:false,
+    bullets:[
+      'Orchestrated the strategic planning and execution of a high-profile interdisciplinary STEM symposium; defined the project roadmap, managed critical path milestones, and ensured 100% on-time delivery of all operational workstreams.',
+      'Acted as the primary liaison between university faculty, industry sponsors, and professional mentors; facilitated cross-functional alignment to secure key partnerships and ensure a diverse, high-impact program for 100+ attendees.',
+      'Directed the logistical backend including venue procurement, project cost tracking and budget forecasting, and volunteer scheduling; created and tracked resource requests and maintained documentation integrity across all operational workstreams.'
+    ],
+    pills:['Event Direction','Stakeholder Relations','Budget Forecasting','Venue Procurement','Volunteer Management','Cross-functional Leadership','STEM Outreach']
+  },
+  {
+    color:'#eab308', glow:'rgba(234,179,8,0.2)', glow2:'rgba(234,179,8,0.07)',
+    labelBg:'linear-gradient(145deg,#422006,#713f12)',
+    labelBd:'rgba(234,179,8,0.5)', labelGlow:'rgba(234,179,8,0.45)',
+    dcBg:'rgba(234,179,8,0.12)', dcBd:'rgba(234,179,8,0.22)',
+    emoji:'🌍', company:'Herizon', genre:'Founding',
+    role:'President',
+    when:'2022, Present', live:false,
+    bullets:[
+      'Founded and scaled a STEM initiative for 50+ students across 7 communities, building the organization from the ground up and establishing its operational framework.',
+      'Directed a team of 25 volunteers, managing end-to-end project lifecycle, administrative logistics, and stakeholder partnerships to ensure 100% operational success.',
+      'Drove community outreach and partnership development across 7 communities, securing resources and sustaining program growth across multiple academic years.'
+    ],
+    pills:['Founding Leadership','Volunteer Management','Community Building','Stakeholder Partnerships','STEM Initiatives','Organizational Design','Operations']
+  },
+  {
+    color:'#06b6d4', glow:'rgba(6,182,212,0.2)', glow2:'rgba(6,182,212,0.07)',
+    labelBg:'linear-gradient(145deg,#083344,#164e63)',
+    labelBd:'rgba(6,182,212,0.5)', labelGlow:'rgba(6,182,212,0.45)',
+    dcBg:'rgba(6,182,212,0.12)', dcBd:'rgba(6,182,212,0.22)',
+    emoji:'🎙️', company:'NIMUN XIII', genre:'Conference PM',
+    role:'Project Manager',
+    when:'2023, 2024', live:false,
+    bullets:[
+      'Orchestrated the end-to-end logistical framework and cross-functional team coordination for a Model UN conference of 250+ delegates.',
+      'Managed the full project lifecycle from pre-event planning through on-site execution, ensuring all operational workstreams delivered on schedule.',
+      'Coordinated across committees, volunteer teams, and faculty advisors to maintain alignment and resolve blockers in real-time during the conference.'
+    ],
+    pills:['Conference Management','Cross-functional Coordination','Project Lifecycle','Logistics','Volunteer Leadership','Stakeholder Alignment','Event Operations']
+  },
+];
 
-const tracks     = document.querySelectorAll('.track');
-const disk       = document.getElementById('vinylDisk');
-const ambient    = document.getElementById('vinylAmbient');
-const label      = document.getElementById('vinylLabel');
-const emoji      = document.getElementById('vinylEmoji');
-const vname      = document.getElementById('vinylName');
-const tonearm    = document.getElementById('tonearm');
-const tonearmHd  = document.getElementById('tonearmHead');
-const npRole     = document.getElementById('npRole');
-const npCompany  = document.getElementById('npCompany');
-const npWhen     = document.getElementById('npWhen');
-const npComp     = document.getElementById('npCompany');
-const progFill   = document.getElementById('progressFill');
-const playBtn    = document.getElementById('playBtn');
-const prevBtn    = document.getElementById('prevBtn');
-const nextBtn    = document.getElementById('nextBtn');
-const waveform   = document.getElementById('waveform');
-const detailInner = document.getElementById('detailInner');
-const detailIcon  = document.getElementById('detailIcon');
+// ── STATE ────────────────────────────────────────────────────
+let activeExp = [];
+let cur = 0, progVal = 0, progTimer = null, autoTimer = null;
+let tracks = [];
+
+// ── DOM REFS ─────────────────────────────────────────────────
+const disk         = document.getElementById('vinylDisk');
+const ambient      = document.getElementById('vinylAmbient');
+const label        = document.getElementById('vinylLabel');
+const emoji        = document.getElementById('vinylEmoji');
+const vname        = document.getElementById('vinylName');
+const tonearm      = document.getElementById('tonearm');
+const tonearmHd    = document.getElementById('tonearmHead');
+const npRole       = document.getElementById('npRole');
+const npCompany    = document.getElementById('npCompany');
+const npWhen       = document.getElementById('npWhen');
+const progFill     = document.getElementById('progressFill');
+const playBtn      = document.getElementById('playBtn');
+const prevBtn      = document.getElementById('prevBtn');
+const nextBtn      = document.getElementById('nextBtn');
+const waveform     = document.getElementById('waveform');
+const detailInner  = document.getElementById('detailInner');
+const detailIcon   = document.getElementById('detailIcon');
 const detailBadgeCompany = document.getElementById('detailBadgeCompany');
 const detailBadgeTrack   = document.getElementById('detailBadgeTrack');
-const detailRole  = document.getElementById('detailRole');
-const detailWhen  = document.getElementById('detailWhen');
+const detailRole   = document.getElementById('detailRole');
+const detailWhen   = document.getElementById('detailWhen');
 const detailBullets = document.getElementById('detailBullets');
 const detailPills   = document.getElementById('detailPills');
 const root = document.documentElement;
 
+// ── BUILD TRACKLIST ──────────────────────────────────────────
+function buildTracklist() {
+  document.getElementById('tlCount').textContent = activeExp.length + ' tracks';
+  const container = document.getElementById('tracklistItems');
+  container.innerHTML = activeExp.map((e, i) => `
+    <div class="track${i===0?' active':''}" data-idx="${i}"
+      style="--tc:${e.color}; --ta-bg:${e.dcBg}; --ta-bd:${e.dcBd}; --ta-glow:${e.labelGlow};">
+      <div class="track-num-wrap">
+        <span class="track-num">${String(i+1).padStart(2,'0')}</span>
+        <div class="track-eq"><span></span><span></span><span></span><span></span></div>
+      </div>
+      <div class="track-art">${e.emoji}</div>
+      <div class="track-info">
+        <div class="track-title">${e.role}</div>
+        <div class="track-artist">${e.company}</div>
+      </div>
+      <div class="track-right">${e.live
+        ? '<span class="live-dot-badge">LIVE</span>'
+        : `<span class="track-year">${e.when.split(',')[1]?.trim() || ''}</span>`
+      }</div>
+    </div>
+  `).join('');
+
+  tracks = Array.from(container.querySelectorAll('.track'));
+  tracks.forEach((t, i) => {
+    t.addEventListener('click', () => { selectTrack(i); resetAutoTimer(); });
+  });
+}
+
+// ── SELECT TRACK ─────────────────────────────────────────────
 function selectTrack(idx, instant) {
   cur = idx;
-  const e = EXP[idx];
+  const e = activeExp[idx];
 
-  // CSS vars
   root.style.setProperty('--vc-color', e.color);
   root.style.setProperty('--vc-glow',  e.glow);
   root.style.setProperty('--dc-color', e.color);
   root.style.setProperty('--dc-bg',    e.dcBg);
   root.style.setProperty('--dc-bd',    e.dcBd);
 
-  // Ambient bg
-  document.getElementById('ambientBg').style.cssText = `
-    --ambient: ${e.glow};
-    --ambient2: ${e.glow2};
-  `;
-
-  // Wave bars color
+  document.getElementById('ambientBg').style.cssText = `--ambient:${e.glow};--ambient2:${e.glow2};`;
   waveform.querySelectorAll('.wave-bar').forEach(b => b.style.background = e.color);
-
-  // Tracks active
   tracks.forEach((t,i) => t.classList.toggle('active', i===idx));
 
-  // Needle animation
   if (!instant) {
     tonearm.classList.remove('dropped');
     tonearm.classList.add('lifted');
     disk.classList.add('fast');
     setTimeout(() => {
-      // Swap label content mid-spin
       emoji.textContent = e.emoji;
       vname.textContent = e.company;
       label.style.background = e.labelBg;
@@ -1107,7 +1159,6 @@ function selectTrack(idx, instant) {
       ambient.style.background = `radial-gradient(ellipse at center, ${e.glow} 0%, transparent 68%)`;
       tonearmHd.style.background = `linear-gradient(135deg, ${e.color}, ${e.color}cc)`;
       tonearmHd.style.boxShadow = `0 0 14px ${e.glow}`;
-      // update now-playing
       npRole.textContent = e.role;
       npCompany.textContent = e.company;
       npCompany.style.color = e.color;
@@ -1139,23 +1190,21 @@ function selectTrack(idx, instant) {
     progFill.style.background = e.color;
   }
 
-  // Detail panel fade
   detailInner.classList.remove('show');
   setTimeout(() => {
     detailIcon.textContent = e.emoji;
     detailIcon.style.background = e.dcBg;
     detailIcon.style.borderColor = e.dcBd;
     detailBadgeCompany.textContent = e.company;
-    detailBadgeTrack.textContent = `Track 0${idx+1} · ${e.genre}`;
+    detailBadgeTrack.textContent = `Track ${String(idx+1).padStart(2,'0')} · ${e.genre}`;
     detailBadgeTrack.style.color = e.color;
-    detailRole.textContent = e.role;
+    detailRole.innerHTML = e.role;
     detailWhen.innerHTML = e.when + (e.live ? ' <span class="live-badge">LIVE</span>' : '');
     detailBullets.innerHTML = e.bullets.map(b => `<li>${b}</li>`).join('');
     detailPills.innerHTML = e.pills.map(p => `<span class="detail-pill">${p}</span>`).join('');
     detailInner.classList.add('show');
   }, instant ? 0 : 220);
 
-  // Progress bar
   progVal = 0; progFill.style.width = '0%';
   clearInterval(progTimer);
   progTimer = setInterval(() => {
@@ -1165,46 +1214,64 @@ function selectTrack(idx, instant) {
   }, 100);
 }
 
-tracks.forEach((t, i) => t.addEventListener('click', () => selectTrack(i)));
-prevBtn.addEventListener('click', () => selectTrack((cur - 1 + EXP.length) % EXP.length));
-nextBtn.addEventListener('click', () => selectTrack((cur + 1) % EXP.length));
+// ── ACTIVATE PLAYLIST ────────────────────────────────────────
+function activatePlaylist(type) {
+  activeExp = type === 'tech' ? TECH_EXP : LEAD_EXP;
+  const subtitles = {
+    tech: 'From utility infrastructure to marine ML research, building things that actually ship.',
+    lead: 'From hackathon programs to faculty operations, leading initiatives that move the needle.'
+  };
+  document.getElementById('pageSub').textContent = subtitles[type];
+  document.getElementById('playlistSelect').style.display = 'none';
+  document.getElementById('vinylStage').style.display = 'grid';
+  buildTracklist();
+  selectTrack(0, true);
+  resetAutoTimer();
+}
 
+// ── BACK BUTTON ───────────────────────────────────────────────
+document.getElementById('backBtn').addEventListener('click', () => {
+  clearInterval(autoTimer);
+  clearInterval(progTimer);
+  document.getElementById('vinylStage').style.display = 'none';
+  document.getElementById('playlistSelect').style.display = 'flex';
+  document.getElementById('pageSub').textContent = 'Two playlists. Every track shipped.';
+});
+
+// ── PLAYLIST CARD CLICKS ──────────────────────────────────────
+document.getElementById('btnTech').addEventListener('click', () => activatePlaylist('tech'));
+document.getElementById('btnLead').addEventListener('click', () => activatePlaylist('lead'));
+
+// ── PREV / NEXT ───────────────────────────────────────────────
+prevBtn.addEventListener('click', () => { selectTrack((cur - 1 + activeExp.length) % activeExp.length); resetAutoTimer(); });
+nextBtn.addEventListener('click', () => { selectTrack((cur + 1) % activeExp.length); resetAutoTimer(); });
+
+// ── SCROLL ────────────────────────────────────────────────────
 window.addEventListener('scroll', () => {
   document.getElementById('scroll-top').classList.toggle('show', scrollY > 200);
 }, { passive: true });
 
-selectTrack(0, true);
-
-// ── AUTO-ADVANCE every 25 seconds ───────────────────────────
-let autoTimer = null;
+// ── AUTO-ADVANCE every 25 seconds ────────────────────────────
 function resetAutoTimer() {
   clearInterval(autoTimer);
-  autoTimer = setInterval(() => {
-    selectTrack((cur + 1) % EXP.length);
-  }, 25000);
+  autoTimer = setInterval(() => selectTrack((cur + 1) % activeExp.length), 25000);
 }
-// Reset timer whenever user manually picks a track
-tracks.forEach(t => t.addEventListener('click', resetAutoTimer));
-prevBtn.addEventListener('click', resetAutoTimer);
-nextBtn.addEventListener('click', resetAutoTimer);
-resetAutoTimer();
 
-// ── DRAG-TO-ROTATE ──────────────────────────────────────────
+// ── DRAG-TO-ROTATE ────────────────────────────────────────────
 (function(){
   const player   = document.querySelector('.vinyl-player');
-  const disk     = document.getElementById('vinylDisk');
+  const diskEl   = document.getElementById('vinylDisk');
   const svg      = document.getElementById('dragRingSvg');
   const ringFill = document.getElementById('dragRingFill');
-  const CIRCUM   = 1232; // 2π × 196
+  const CIRCUM   = 1232;
   const FULL     = 360;
 
   let dragging = false, lastAngle = 0;
   let accumulated = 0, visualRot = 0;
-  // velocity tracking for momentum
-  let velocity = 0, lastDelta = 0, rafId = null;
+  let velocity = 0, rafId = null;
 
   function getAngle(e) {
-    const r = disk.getBoundingClientRect();
+    const r = diskEl.getBoundingClientRect();
     const cx = r.left + r.width  / 2;
     const cy = r.top  + r.height / 2;
     const cx2 = e.touches ? e.touches[0].clientX : e.clientX;
@@ -1229,16 +1296,16 @@ resetAutoTimer();
   function applyAccum(extra) {
     accumulated += extra;
     visualRot   += extra;
-    disk.style.transform = `rotate(${visualRot}deg)`;
+    diskEl.style.transform = `rotate(${visualRot}deg)`;
     setRing(accumulated / FULL);
 
     if (accumulated >= FULL) {
       accumulated -= FULL;
-      selectTrack((cur + 1) % EXP.length);
+      selectTrack((cur + 1) % activeExp.length);
       setRing(accumulated / FULL);
     } else if (accumulated <= -FULL) {
       accumulated += FULL;
-      selectTrack((cur - 1 + EXP.length) % EXP.length);
+      selectTrack((cur - 1 + activeExp.length) % activeExp.length);
       setRing(accumulated / FULL);
     }
   }
@@ -1246,12 +1313,13 @@ resetAutoTimer();
   function onStart(e) {
     if (e.target.closest('.tonearm-wrap')) return;
     if (e.type === 'mousedown' && e.button !== 0) return;
+    if (!activeExp.length) return;
     cancelAnimationFrame(rafId);
     dragging = true; velocity = 0;
-    const m = new DOMMatrix(getComputedStyle(disk).transform);
+    const m = new DOMMatrix(getComputedStyle(diskEl).transform);
     visualRot = Math.atan2(m.b, m.a) * 180 / Math.PI;
-    disk.style.animationPlayState = 'paused';
-    disk.style.transform = `rotate(${visualRot}deg)`;
+    diskEl.style.animationPlayState = 'paused';
+    diskEl.style.transform = `rotate(${visualRot}deg)`;
     lastAngle = getAngle(e);
     accumulated = 0;
     player.style.cursor = 'grabbing';
@@ -1263,7 +1331,7 @@ resetAutoTimer();
     const angle = getAngle(e);
     const delta = norm(angle - lastAngle);
     lastAngle = angle;
-    velocity = delta * 0.6 + velocity * 0.4; // smooth velocity
+    velocity = delta * 0.6 + velocity * 0.4;
     applyAccum(delta);
   }
 
@@ -1271,19 +1339,16 @@ resetAutoTimer();
     if (!dragging) return;
     dragging = false;
     player.style.cursor = 'grab';
-
-    // Momentum coast
     function coast() {
       if (Math.abs(velocity) < 0.08) {
-        // Done — snap ring away and resume CSS spin
         accumulated = 0;
         setRing(0);
-        disk.style.animationPlayState = '';
-        disk.style.transform = '';
+        diskEl.style.animationPlayState = '';
+        diskEl.style.transform = '';
         return;
       }
       applyAccum(velocity);
-      velocity *= 0.88; // friction
+      velocity *= 0.88;
       rafId = requestAnimationFrame(coast);
     }
     rafId = requestAnimationFrame(coast);
